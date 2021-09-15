@@ -5,38 +5,55 @@
 
 #endif // FUNCIONES_H_INCLUDED
 
-/** \brief Suma dos numeros
- *
- * \param a int Primer numero que recibe
- * \param b int Segundo numero que recibe
- * \return int  Retorna la suma de los dos numeros
- *
- */
-int fsuma(int a , int b);
 
-/** \brief Divide dos numeros
+/** \brief Despliega un menu y escribe los numeros en las variables
  *
- * \param a int Primer numero que recibe
- * \param b int Segundo numero que recibe
- * \return int Retorna la division entre dos numeros
+ * \param a int* Se pide el puntero para escribirle un valor que se ingresa
+ * \param b int* Se pide otro puntero para tambien escribirle el valor que se ingresa
+ * \return int  Retorna la opcion elegida
  *
  */
-int fDivision(int a, int b);
+int menu(int* a , int* b);
 
-/** \brief Multiplica dos numeros
+/** \brief  Suma dos numeros que se recibe
  *
- * \param a int Primer numero que recibe
+ * \param a int Primer Numero que recibe
  * \param b int Segundo numero que recibe
- * \return int Retona la multiplicacion entre a y b
+ * \param suma int* Puntero que escribe la suma de los dos numeros
+ * \return int Retorna 1 o 0 para corroborar que todo salio bien
  *
  */
-int fMultiplicacion(int a, int b);
+int fsuma(int a , int b, int* suma);
 
-/** \brief Resta dos numeros
+
+/** \brief Divide dos numeros que recibe
  *
  * \param a int Primer numero que recibe
  * \param b int Segundo numero que recibe
- * \return int Retorna la resta entre a y b
+ * \param division float* Puntero que escribe la division de los dos numeros
+ * \return int  Retorna 1 o 0 para corroborar que todo salio bien
  *
  */
-int fResta(int a, int b );
+int fDivision(int a, int b,float* division);
+
+
+/** \brief Multiplica dos numeros que recibe
+ *
+ * \param a int Primer numero que recibe
+ * \param b int Segundo numero que recibe
+ * \param multiplicacion int* Puntero que escribe la multiplicacion de los numeros
+ * \return int  Retorna 1 o 0 para corroborar que todo salio bien
+ *
+ */
+int fMultiplicacion(int a, int b, int* multiplicacion);
+
+
+/** \brief Resta dos numeros que recibe
+ *
+ * \param a int Primer numero que recibe
+ * \param b int Segundo numero que recibe
+ * \param resta int* Puntero que escribe la resta de los numeros
+ * \return int Retorna 1 o 0 para corroborar que todo salio bien
+ *
+ */
+int fResta(int a, int b, int* resta );

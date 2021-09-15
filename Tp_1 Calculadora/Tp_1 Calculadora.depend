@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # depslib dependency file v1.0
 1631557719 source:c:\users\contabilidad\desktop\c\tp_laboratorio-1\tp_1 calculadora\funcionestp-1.c
 	<stdio.h>
@@ -18,3 +19,25 @@
 	<ctype.h>
 	"Funciones.h"
 
+=======
+# depslib dependency file v1.0
+1631557719 source:c:\users\contabilidad\desktop\c\tp_laboratorio-1\tp_1 calculadora\funcionestp-1.c
+	<stdio.h>
+	<ctype.h>
+	"Funciones.h"
+
+1631567834 source:c:\users\contabilidad\desktop\c\tp_laboratorio-1\tp_1 calculadora\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"Funciones.h"
+	<stdlib.h>
+
+1631565816 c:\users\contabilidad\desktop\c\tp_laboratorio-1\tp_1 calculadora\funciones.h
+
+1631565906 source:c:\users\contabilidad\desktop\c\tp_laboratorio-1\tp_1 calculadora\funciones.c
+	<stdio.h>
+	<ctype.h>
+	"Funciones.h"
+
+>>>>>>> 605ec70ecc07e399ced433e475315427102b1704
