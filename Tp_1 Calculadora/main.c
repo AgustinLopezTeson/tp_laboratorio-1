@@ -3,52 +3,49 @@
 #include <ctype.h>
 #include "Funciones.h"
 
-
 int main()
 {
 
-    int primerNumero;
-    int segundoNumero;
+    int primerNumero=0;
+    int segundoNumero=0;
     int opcionElegida;
-    char opcionOperacion;
     int respuesta = 1 ;
     int resta;
     int multiplicacion;
-    unsigned long long int factorialA;
-    unsigned long long int factorialB;
     int suma;
-    float division;
     int divCero;
+    int flagPrNum=0;
+    int flagSegNum=0;
+    int flagCalc=0;
+    unsigned long  int factorialA;
+    unsigned long  int factorialB;
+    float division;
+
 
     do
     {
-        opcionElegida= menu(&primerNumero, &segundoNumero);
+        opcionElegida  = menu(&primerNumero, &segundoNumero, &flagPrNum, &flagSegNum, &flagCalc);
 
         switch(opcionElegida)
         {
 
         case 1 :
-            printf("1er Numero : \n");
+            printf("\n1er Numero :  ");
             scanf("%d", &primerNumero);
             break;
         case 2 :
-            printf("2do Numero: \n");
+            printf("\n2do Numero:  ");
             scanf("%d", &segundoNumero);
             break;
         case 3 :
-            system("cls");
-            printf("\na) Calcular la Suma (%d + %d)\n\n",primerNumero,segundoNumero);
-            printf("b) Calcular la Resta (%d - %d)\n\n",primerNumero,segundoNumero);
-            printf("c) Calcular la Division (%d / %d)\n\n",primerNumero,segundoNumero);
-            printf("d) Calcular la multiplicacion (%d * %d)\n\n",primerNumero,segundoNumero);
-            printf("e) Calcular el factorial (!%d)\n\n",primerNumero);
+
             fsuma(primerNumero,segundoNumero,&suma);
             fResta(primerNumero,segundoNumero,&resta);
             divCero=fDivision(primerNumero,segundoNumero,&division);
             fMultiplicacion(primerNumero,segundoNumero,&multiplicacion);
+            fFactorial(primerNumero,segundoNumero,&factorialA,&factorialB);
+            muestraOperaciones(primerNumero,segundoNumero);
 
-            printf("SE CALCULARON TODAS LAS OPERACIONES\n\n");
-            system("pause");
             break;
         case 4 :
 
@@ -66,6 +63,7 @@ int main()
             }
 
             printf("El resultado de %d * %d es : %d \n\n",primerNumero,segundoNumero,multiplicacion);
+            printf("El resultado del factorial de A:%d es %d y de B:%d es %d\n\n",primerNumero,segundoNumero,factorialA,factorialB);
             system("pause");
             break;
         case 5 :
@@ -75,8 +73,6 @@ int main()
         system("cls");
     }
     while(respuesta==1);
-
-
 
     return 0;
 }

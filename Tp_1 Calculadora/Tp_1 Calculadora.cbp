@@ -35,9 +35,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Funciones.h" />
-		<Unit filename="FuncionesTp-1.C">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

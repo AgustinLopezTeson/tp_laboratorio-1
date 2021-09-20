@@ -6,6 +6,13 @@
 #endif // FUNCIONES_H_INCLUDED
 
 
+
+
+
+int fFactorial(int primerNumero, int segundoNumero,unsigned long  int* a , unsigned long  int* b);
+
+void muestraOperaciones(int primerNumero, int segundoNumero);
+
 /** \brief Despliega un menu y escribe los numeros en las variables
  *
  * \param a int* Se pide el puntero para escribirle un valor que se ingresa
@@ -13,7 +20,7 @@
  * \return int  Retorna la opcion elegida
  *
  */
-int menu(int* a , int* b);
+int menu(int* a, int* b,int* flag1,int* flag2, int* flagCal );
 
 /** \brief  Suma dos numeros que se recibe
  *
