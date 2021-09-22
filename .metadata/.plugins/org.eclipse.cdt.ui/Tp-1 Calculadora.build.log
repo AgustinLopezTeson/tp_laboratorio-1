@@ -1,0 +1,22 @@
+19:06:59 **** Incremental Build of configuration Debug for project Tp-1 Calculadora ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Tp-1 Calculadora.o" "..\\src\\Tp-1 Calculadora.c" 
+..\src\Tp-1 Calculadora.c: In function 'main':
+..\src\Tp-1 Calculadora.c:77:70: warning: format '%d' expects argument of type 'int', but argument 4 has type 'long unsigned int' [-Wformat=]
+             printf("El resultado del factorial de A:%d es %d y de B:%d es %d\n\n",primerNumero,segundoNumero,factorialA,factorialB);
+                                                                      ^
+..\src\Tp-1 Calculadora.c:77:76: warning: format '%d' expects argument of type 'int', but argument 5 has type 'long unsigned int' [-Wformat=]
+             printf("El resultado del factorial de A:%d es %d y de B:%d es %d\n\n",primerNumero,segundoNumero,factorialA,factorialB);
+                                                                            ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Funciones.o" "..\\src\\Funciones.c" 
+..\src\Funciones.c:148:1: warning: return type defaults to 'int' [-Wimplicit-int]
+ fFactorial(int primerNumero, int segundoNumero,unsigned long int* a, unsigned long int* b)
+ ^~~~~~~~~~
+..\src\Funciones.c: In function 'fFactorial':
+..\src\Funciones.c:168:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -o "Tp-1 Calculadora.exe" "src\\Funciones.o" "src\\Tp-1 Calculadora.o" 
+
+19:07:02 Build Finished. 0 errors, 4 warnings. (took 3s.117ms)
+
