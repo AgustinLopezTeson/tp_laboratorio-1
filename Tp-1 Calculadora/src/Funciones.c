@@ -138,14 +138,14 @@ void muestraOperaciones(int primerNumero,int segundoNumero)
     printf("b) Calcular la Resta (%d - %d)\n\n",primerNumero,segundoNumero);
     printf("c) Calcular la Division (%d / %d)\n\n",primerNumero,segundoNumero);
     printf("d) Calcular la multiplicacion (%d * %d)\n\n",primerNumero,segundoNumero);
-    printf("e) Calcular el factorial (!%d)\n\n",primerNumero);
+    printf("e) Calcular el factorial (!%d) y (!%d)\n\n",primerNumero,segundoNumero);
     printf("SE CALCULARON TODAS LAS OPERACIONES\n\n");
     system("pause");
 
 }
 
 
-fFactorial(int primerNumero, int segundoNumero,unsigned long int* a, unsigned long int* b)
+void fFactorial(int primerNumero, int segundoNumero,int* a,int* b)
 {
     unsigned long int resultadoFactorialA=1;
     unsigned long int resultadoFactorialB=1;
