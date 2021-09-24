@@ -67,7 +67,8 @@ int menu(int* a, int* b,int* flag1,int* flag2, int* flagCal)
 
     do
     {
-        printf("\n Menu de Opciones : \n\n");
+
+    	printf("\n Menu de Opciones : \n\n");
         printf("1. Ingresar el primer Numero (A=%d)\n\n",primerNumero);
         printf("2. Ingresar el segundo Numero (B=%d)\n\n",segundoNumero);
         printf("3. Calcular Operaciones\n\n");
@@ -75,9 +76,10 @@ int menu(int* a, int* b,int* flag1,int* flag2, int* flagCal)
         printf("5. Salir de la Calculadora\n");
         printf( "\nIngrese la opcion correspondiente: \n");
 
-        scanf("%d", &opcionElegida);
+        	scanf("%d", &opcionElegida);
 
-        switch (opcionElegida)
+
+    switch (opcionElegida)
         {
 
         case 1 :
@@ -145,10 +147,10 @@ void muestraOperaciones(int primerNumero,int segundoNumero)
 }
 
 
-void fFactorial(int primerNumero, int segundoNumero,int* a,int* b)
+void fFactorial(int primerNumero, int segundoNumero,long int* a,long int* b)
 {
-    unsigned long int resultadoFactorialA=1;
-    unsigned long int resultadoFactorialB=1;
+    long int resultadoFactorialA=1;
+    long int resultadoFactorialB=1;
 
 
 
@@ -157,6 +159,7 @@ void fFactorial(int primerNumero, int segundoNumero,int* a,int* b)
             resultadoFactorialA=resultadoFactorialA*i;
 
     }
+
     for(int i=1 ; i<=segundoNumero; i++)
     {
             resultadoFactorialB=resultadoFactorialB*i;

@@ -27,13 +27,15 @@ int main() {
 	int flagPrNum = 0;
 	int flagSegNum = 0;
 	int flagCalc = 0;
-	unsigned long int factorialA;
-	unsigned long int factorialB;
+	long int factorialA;
+	long int factorialB;
 	float division;
 
 	do {
-		opcionElegida = menu(&primerNumero, &segundoNumero, &flagPrNum,
-				&flagSegNum, &flagCalc);
+
+
+			opcionElegida = menu(&primerNumero, &segundoNumero, &flagPrNum,
+			&flagSegNum, &flagCalc);
 
 		switch (opcionElegida) {
 
@@ -72,8 +74,8 @@ int main() {
 
 			printf("El resultado de %d * %d es : %d \n\n", primerNumero,
 					segundoNumero, multiplicacion);
-			printf("El resultado del factorial de A:%d es %d y de B:%d es %d\n\n",
-					primerNumero, segundoNumero, factorialA, factorialB);
+			printf("El resultado del factorial de A:%d es %li y de B:%d es %li\n\n",
+					primerNumero,factorialA,segundoNumero, factorialB);
 			system("pause");
 			break;
 		case 5:

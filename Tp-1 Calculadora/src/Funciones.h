@@ -6,7 +6,7 @@
 #endif // FUNCIONES_H_INCLUDED
 
 
-void fFactorial(int primerNumero, int segundoNumero,int* a , int* b);
+void fFactorial(int primerNumero, int segundoNumero,long int* a , long int* b);
 
 void muestraOperaciones(int primerNumero, int segundoNumero);
 
