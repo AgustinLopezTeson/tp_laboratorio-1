@@ -74,9 +74,8 @@ int menu(int* a, int* b,int* flag1,int* flag2, int* flagCal)
         printf("3. Calcular Operaciones\n\n");
         printf("4. Informar resultados\n\n");
         printf("5. Salir de la Calculadora\n");
-        printf( "\nIngrese la opcion correspondiente: \n");
-
-        	scanf("%d", &opcionElegida);
+        printf( "\nIngrese la opcion correspondiente (1-5) : \n");
+        scanf("%d", &opcionElegida);
 
 
     switch (opcionElegida)
@@ -110,7 +109,7 @@ int menu(int* a, int* b,int* flag1,int* flag2, int* flagCal)
             {
                 printf("\nTiene que calcular antes de mostrar resultados\n\n");
                 system("pause");
-
+                system("cls");
             }
             else
             {
@@ -123,6 +122,7 @@ int menu(int* a, int* b,int* flag1,int* flag2, int* flagCal)
         {
 
             correcto=1;
+            system("cls");
         }
         break;
         }
@@ -147,26 +147,23 @@ void muestraOperaciones(int primerNumero,int segundoNumero)
 }
 
 
-void fFactorial(int primerNumero, int segundoNumero,long int* a,long int* b)
+int fFactorial(int Numero,long int* a)
 {
-    long int resultadoFactorialA=1;
-    long int resultadoFactorialB=1;
+    long int resultado=1;
+    int todoOk=0;
 
+if( a != NULL) {
 
-
-    for(int i=1 ; i<primerNumero; i++)
+	if(Numero>=0){
+		todoOk=1;
+	for(int i=Numero ; i>1; i--)
     {
-            resultadoFactorialA=resultadoFactorialA*i;
+            resultado=resultado*i;
+    	}
 
-    }
-
-    for(int i=1 ; i<=segundoNumero; i++)
-    {
-            resultadoFactorialB=resultadoFactorialB*i;
-
-    }
-
-    *a = resultadoFactorialA;
-    *b = resultadoFactorialB;
+	}
+	*a = resultado;
+		}
+return todoOk;
 }
 

@@ -29,6 +29,8 @@ int main() {
 	int flagCalc = 0;
 	long int factorialA;
 	long int factorialB;
+	int factorialNegativo1;
+	int factorialNegativo2;
 	float division;
 
 	do {
@@ -53,7 +55,8 @@ int main() {
 			fResta(primerNumero, segundoNumero, &resta);
 			divCero = fDivision(primerNumero, segundoNumero, &division);
 			fMultiplicacion(primerNumero, segundoNumero, &multiplicacion);
-			fFactorial(primerNumero, segundoNumero, &factorialA, &factorialB);
+			factorialNegativo1=fFactorial(primerNumero, &factorialA);
+			factorialNegativo2=fFactorial(segundoNumero,&factorialB);
 			muestraOperaciones(primerNumero, segundoNumero);
 
 			break;
@@ -72,15 +75,31 @@ int main() {
 				printf("No se puede dividir por cero\n\n");
 			}
 
+
 			printf("El resultado de %d * %d es : %d \n\n", primerNumero,
 					segundoNumero, multiplicacion);
-			printf("El resultado del factorial de A:%d es %li y de B:%d es %li\n\n",
-					primerNumero,factorialA,segundoNumero, factorialB);
+
+			if(factorialNegativo1==1){
+			printf("El resultado del factorial de A:%d es %li\n\n",primerNumero,factorialA);
+			}else{
+			printf("No se puede calcular el factorial de A:%d, ya que es  negativo\n\n",primerNumero);
+			}
+
+			if(factorialNegativo2==1){
+			printf("El resultado del factorial de B:%d es %li\n\n",segundoNumero,factorialB);
+			}else{
+				printf("No se puede calcular el factorial de B:%d, ya es que es negativo\n\n",segundoNumero);
+			}
 			system("pause");
+
 			break;
 		case 5:
 			respuesta = 0;
 			printf("Saliendo de la calculadora ...");
+			break;
+		default:
+
+			printf("Ingrese una opcion valida (1-5)");
 			break;
 		}
 		system("cls");
