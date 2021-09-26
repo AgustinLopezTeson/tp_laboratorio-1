@@ -100,6 +100,7 @@ int main() {
 		default:
 
 			printf("Ingrese una opcion valida (1-5)");
+
 			break;
 		}
 		system("cls");

@@ -119,11 +119,12 @@ int menu(int* a, int* b,int* flag1,int* flag2, int* flagCal)
             break;
 
         case 5:
-        {
 
             correcto=1;
-            system("cls");
-        }
+
+        break;
+        default:
+        	system("cls");
         break;
         }
     }
