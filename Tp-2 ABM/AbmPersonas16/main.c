@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -32,21 +33,29 @@ int main()
             {
                 printf("Alta exitosa !!!\n");
 
+
             }
             break;
         case 2:
-            printf("Baja Persona");
-            break;
-        case 3:
             printf("Modificar Persona");
             break;
+        case 3:
+
+             if(!bajaPersona(lista,TAM))
+            {
+                printf("No se pudo realizar la baja");
+            }
+            else
+            {
+                printf("Baja exitosa !!!\n");
+
+
+            }
+            break;
         case 4:
-            printf("Ordenar Persona");
+            printf("Informar");
             break;
         case 5:
-            printf("Listar Personas");
-            break;
-        case 6:
             printf("Eligio salir");
             seguir='n';
             break;

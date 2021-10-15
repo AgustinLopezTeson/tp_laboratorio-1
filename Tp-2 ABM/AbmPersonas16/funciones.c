@@ -1,4 +1,5 @@
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -15,11 +16,10 @@ int menu()
     system("cls");
     printf(" **** ABM PERSONAS ***** \n\n");
     printf("1-Alta Persona\n");
-    printf("2-Baja Persona\n");
-    printf("3-Modificar Persona\n");
-    printf("4-Ordenar Persona\n");
-    printf("5-Listar Persona\n");
-    printf("6-Salir\n");
+    printf("2-Modificar Persona\n");
+    printf("3-Baja Persona\n");
+    printf("4-Listar Persona\n");
+    printf("5-Salir\n");
     printf("Ingrese opcion: ");
     scanf("%d", &opcion);
 }
@@ -86,16 +86,16 @@ int altaPersona(Employee lista [], int tam, int* pId)
 
             printf("\nIngrese nombre: ");
             fflush(stdin);
-            gets(auxPersona.nombre);
+            gets(auxPersona.name);
 
-            printf("\nIngrese sexo: ");
-            scanf("%s", &auxPersona.sexo);
+            printf("\nIngrese su apellido: ");
+            scanf("%s", &auxPersona.lastName);
 
-            printf("\nIngrese edad: ");
-            scanf("%d", &auxPersona.edad);
+            printf("\nIngrese el salario : ");
+            scanf("%d", &auxPersona.salary);
 
-            printf("\nIngrese altura: ");
-            scanf("%.2f", &auxPersona.altura);
+            printf("\nIngrese sector: ");
+            scanf("%.2f", &auxPersona.sector);
 
             (*pId)++;
         }
