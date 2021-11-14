@@ -17,10 +17,15 @@
 #define TAM 1000
 
 
+<<<<<<< HEAD
 
  int main(void) {
 
 		setbuf(stdout,NULL);
+=======
+int main(void) {
+	setbuff(stdout,NULL);
+>>>>>>> b60d1cc23711bcadf034ff8755237a08711873bf
 
 	 	char seguir= 's';
 
