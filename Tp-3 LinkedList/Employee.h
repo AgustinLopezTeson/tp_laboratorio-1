@@ -27,9 +27,11 @@ int employee_setSueldo(Employee* this,float sueldo);
 int employee_getSueldo(Employee* this,float* sueldo);
 
 void list_Employee(Employee* this);
-int  new_employeeManual(Employee* this , int* id);
-int  editEmployee(Employee* this, LinkedList* lista);
-
-int ll_indexOf(LinkedList* this, void* pElement);
+int new_employeeManual(LinkedList* pArrayListEmployee);
+int editEmployee(Employee* this, LinkedList* lista);
+int searchEmployeeId(LinkedList* pArrayListEmployee, int id);
+int compEmployeeSueldo(void* pEmployee, void* sEmployee);
+int compEmployeeHorasTrabajadas(void* pEmployee, void* sEmployee);
+int buscarMayorId(LinkedList* pArrayListEmployee);
 
 #endif // employee_H_INCLUDED

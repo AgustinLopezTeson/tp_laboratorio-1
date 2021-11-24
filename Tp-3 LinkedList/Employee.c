@@ -25,10 +25,8 @@ Employee* employee_new()
 }
 
 
-
-
-
-void employee_delete(Employee* emp){
+void employee_delete(Employee* emp)
+{
 
     free(emp);
 }
@@ -72,7 +70,7 @@ int employee_setNombre(Employee* this,char* nombre)
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
 
-     int todoOk=0;
+    int todoOk=0;
 
     if(this !=NULL && horasTrabajadas>0 )
     {
@@ -121,7 +119,7 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 {
 
 
-   Employee* new_Emp;
+    Employee* new_Emp;
 
 
     new_Emp= employee_new();
@@ -148,15 +146,17 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 }
 
 
-int  new_employeeManual(Employee* this , int* id)
+int  new_employeeManual(LinkedList* pArrayListEmployee)
 {
 
     int todoOk=0;
     char nombre [30];
     int horasTrabajadas;
-    float sueldo;
+    int sueldo;
+    int id;
     Employee* aux=NULL;
     printf("*** Alta de Empleado***\n\n");
+
     printf("\n\nIngrese la id: ");
     scanf("%d", &id);
 
@@ -175,11 +175,11 @@ int  new_employeeManual(Employee* this , int* id)
 
     if(aux!=NULL)
     {
-        ll_add(this,aux);
+        ll_add(pArrayListEmployee,aux);
         todoOk=1;
     }
 
-return todoOk;
+    return todoOk;
 }
 
 
@@ -212,113 +212,121 @@ Employee* employee_newParametrosN(int id,char* nombre,int horasTrabajadas,float 
 }
 
 
-/*int editEmployee(Employee* this,LinkedList* lista)
+
+int searchEmployeeId(LinkedList* pArrayListEmployee, int id)
+{
+    int indice = -1;
+    int idAux;
+    Employee* auxEmp;
+
+    for (int i = 0; i < ll_len(pArrayListEmployee); i++)
+    {
+        auxEmp = ll_get(pArrayListEmployee, i);
+        if( employee_getId(auxEmp, &idAux) && idAux == id)
+        {
+            indice = i;
+        }
+    }
+    return indice;
+}
+
+int employee_getId(Employee* this,int* id)
 {
     int todoOk = 0;
-    int indice;
-    int id;
-    char confirma;
-    char seguir = 's';
-    char salir;
-    Employee* aux=NULL;
-
-    if (pArrayEmployees != NULL && pArrayEmployees!=NULL)
+    if (this != NULL && id != NULL)
     {
-        system("cls");
-        printf("   *** Modificar Empleado *** \n\n");
-        controller_ListEmployee(lista);
-        printf("Ingrese id del empleado : ");
-        scanf("%d", &id);
+        *id = this->id;
+        todoOk = 1;
+    }
+    return todoOk;
 
+}
 
-        if (indice == -1)
-        {
-            printf("El id: %d no esta registrado en el sistema\n", id);
-        }
-        else
-        {
-            do
-            {
-                switch ( menuDeModificaciones() )
-                {
-                case 1:
+int employee_getNombre(Employee* this,char* nombre)
+{
 
-                    printf("Modificar Horas: ");
-                    scanf("%d",aux->horasTrabajadas);
-                    printf("Confirma cambio de tipo? (S/N)\n");
-                    fflush(stdin);
-                    scanf("%c", &confirma);
-                    confirma = toupper(confirma);
-                    if (confirma == 'S')
-                    {
-                        ll_index)
-                        employee_setHorasTrabajadas(this,aux->horasTrabajadas);
-                    }
-                    else
-                    {
-                        printf("Edición cancelada\n");
-                    }
-                    break;
-                case 2:
-                    printf("Modificar sueldo: ");
-                    scanf("%.2f", aux->sueldo);
-                    printf("Confirma cambio de precio? (S/N)\n");
-                    fflush(stdin);
-                    scanf("%c", &confirma);
-                    confirma = toupper(confirma);
-                    if (confirma == 'S')
-                    {
-                        employee_setSueldo(this,aux->sueldo);
-                    }
-                    else
-                    {
-                        printf("Edición cancelada\n");
-                    }
-                    break;
-                case 3:
-                    printf("Esta seguro que quiere salir? (S/N)\n");
-                    fflush(stdin);
-                    scanf("%c", &salir);
-                    salir = toupper(salir);
-                    if (salir == 'S')
-                    {
-                        seguir = 'n';
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    break;
-                default:
-                    printf("Opcion invalida\n");
-                }
-                system("pause");
-            }
-            while(seguir == 's');
+    int todoOk = 0;
+    if (this != NULL && nombre != NULL )
+    {
+        strcpy(nombre, this->nombre);
+        todoOk = 1;
+    }
+    return todoOk;
 
-            todoOk = 1;
+}
 
-        }
+int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
+{
+    int todoOk = 0;
+    if (this != NULL && horasTrabajadas != NULL)
+    {
+        *horasTrabajadas = this->horasTrabajadas;
+        todoOk = 1;
+    }
+    return todoOk;
+
+}
+
+int employee_getSueldo(Employee* this,float* sueldo)
+{
+
+    int todoOk = 0;
+    if (this != NULL && sueldo > 0)
+    {
+        *sueldo=this->sueldo;
+        todoOk = 1;
     }
     return todoOk;
 }
-*/
 
-int ll_indexOf(LinkedList* this, void* pElement)
+int compEmployeeHorasTrabajadas(void* pEmployee, void* sEmployee)
 {
-    int returnAux = -1;
+    int todoOk= 0;
 
-    if(this!=NULL)
+    if( ((Employee*)pEmployee)->horasTrabajadas > ((Employee*)sEmployee)->horasTrabajadas )
     {
-        int  tam=ll_len(this);
-        for(int i = 0 ; i<tam; i++)
+        todoOk++;
+    }
+    if( ((Employee*)pEmployee)->horasTrabajadas < ((Employee*)sEmployee)->horasTrabajadas )
+    {
+        todoOk--;
+    }
+    return todoOk;
+}
+
+int compEmployeeSueldo(void* pEmployee, void* sEmployee)
+{
+    int todoOk= 0;
+
+    if(((Employee*)pEmployee)->sueldo > ((Employee*)sEmployee)->sueldo)
+    {
+        todoOk++;
+    }
+    if(((Employee*)pEmployee)->sueldo < ((Employee*)sEmployee)->sueldo)
+    {
+        todoOk --;
+    }
+    return todoOk;
+
+}
+
+
+int buscarMayorId(LinkedList* pArrayListEmployee)
+{
+    Employee* auxEmpleado = NULL;
+    int mayor = 0;
+    int id;
+    if(pArrayListEmployee != NULL)
+    {
+        for( int i = 0; i < ll_len(pArrayListEmployee); i++)
         {
-            if(pElement==ll_get(this,i))
+            auxEmpleado = (Employee*) ll_get(pArrayListEmployee, i);
+            employee_getId(auxEmpleado, &id);
+            if( i==0 || id > mayor)
             {
-                returnAux=0;
-                break;
+                mayor = id;
             }
         }
     }
-    return returnAux;
+    return mayor;
 }

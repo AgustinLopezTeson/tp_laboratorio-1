@@ -32,15 +32,11 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
                         ll_add(pArrayListEmployee,aux);
                         todoOk=0;
                     }
+                        if(cant<3){
+                            break;
+                        }
+                }
 
-
-                    if(cant<3){
-                        break;
-                    }
-
-
-
-            }
     return todoOk;
 }
 
@@ -69,3 +65,4 @@ int todoOk=1;
             }
     return todoOk;
 }
+

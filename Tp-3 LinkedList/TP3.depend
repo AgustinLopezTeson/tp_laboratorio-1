@@ -194,3 +194,46 @@
 	"Employee.h"
 	"input.h"
 
+1637775980 source:c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1637758392 c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\linkedlist.h
+
+1637776370 c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\employee.h
+
+1637776861 source:c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\employee.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+
+1637758392 c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\controller.h
+
+1637769241 source:c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\input.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"input.h"
+
+1637769243 c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\input.h
+
+1637770147 source:c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"input.h"
+
+1637777144 source:c:\users\contabilidad\desktop\officetohome\tp_laboratorio-1-master\tp_laboratorio-1-master\tp-3 linkedlist\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
