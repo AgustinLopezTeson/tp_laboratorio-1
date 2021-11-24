@@ -1,57 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 #include "ArrayEmployees.h"
-#define TAM 5
+#include "myLibrary.h"
+#define TAM 100
 
-int main()
-{
-    char seguir= 's';
-    Employee list [TAM];
-    int nextId = 20000;
-    int id;
+int main(void) {
 
-    initEmployees(list,TAM);
+	char seguir = 's';
+	char salir;
+	int nextId = 20000;
+	employee list[TAM];
 
-    do
-    {
-        switch (menu())
-        {
-        case 1:
-            if(!addEmployee(list,TAM,&nextId,name,lastName,salary,sector))
-            {
-                printf("No se pudo hacer el alta ");
-            }
-            else
-            {
-                printf("Alta Exitosa");
-            }
-            break;
-        case 2:
-            if(!modificarNotebook(lista,TAM,  tipoNote, TAM_TIPO, marcas,TAM_MAR,clientes, TAM_CLI))
-            {
-                printf("No se pudo realizar la modificacion");
-            }
-            else
-            {
-                printf("Modificacion exitosa");
-            }
-            break;
-        case 3:
-            if( bajaNotebook(lista,TAM,tipoNote,TAM_TIPO,marcas,TAM_MAR,clientes,TAM_CLI))
-            {
-                printf("No se pudo realizar la baja");
-            }
-            else
-            {
-                printf("Baja exitosa");
-            }
-            break;
-        case 4:
-            mostrarNotebooks(lista,TAM,marcas,tipoNote,TAM_TIPO,TAM_MAR,clientes,TAM_CLI);
-            system("pause");
-            break;
-    }
-    while(seguir == 's');*/
+	if (initEmployees(list, TAM)) {
+		printf("Error al iniciar list\n");
+	}
 
-    return 0;
+	do {
+		switch (menu()) {
+		case 1:
+			if (newEmployee(list, TAM, &nextId)) {
+				printf("No se pudo realizar el alta\n");
+			} else {
+				printf("Alta exitosa\n");
+			}
+
+			break;
+		case 2:
+			printf("Modificar Empleado\n");
+			if (!editEmployee(list, TAM)) {
+				printf("No se pudo modificar\n");
+			}
+			/*else
+			 {
+			 printf("Cambios realizados con exito\n");
+			 }*/
+			break;
+		case 3:
+			if (!removeEmployee(list, TAM)) {
+				printf("No se pudo realizar la baja\n");
+			} else {
+				printf("Baja exitosa\n");
+			}
+			break;
+		case 4:
+			if (printEmployees(list, TAM)) {
+				printf("No se pudo mostrar lo empleados\n");
+			}
+
+			break;
+		case 5:
+			printf("Esta seguro que quiere salir? (S/N)\n");
+			fflush(stdin);
+			scanf("%c", &salir);
+			salir = toupper(salir);
+			if (salir == 'S') {
+				seguir = 'n';
+			} else {
+				break;
+			}
+			break;
+		default:
+			printf("Opcion invalida\n");
+		}
+		system("pause");
+
+	} while (seguir == 's');
+	return 1;
 }
