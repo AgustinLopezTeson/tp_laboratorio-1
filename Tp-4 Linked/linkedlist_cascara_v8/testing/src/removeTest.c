@@ -80,6 +80,8 @@ void removeTestCase04(void)
 void removeTestCase05(void)
 {
     LinkedList* list;
+    void* pElement;
+    void* pElement2 = newEmployee(10,"JUAN","PEREZ",1,1);
     list = ll_newLinkedList();
     ll_add(list,NULL);
     ll_remove(list,0);
