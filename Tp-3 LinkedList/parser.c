@@ -30,6 +30,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
                         employee_setSueldo(aux,atof(buffer[3]));
 
                         ll_add(pArrayListEmployee,aux);
+
                         todoOk=0;
                     }
                         if(cant<3){

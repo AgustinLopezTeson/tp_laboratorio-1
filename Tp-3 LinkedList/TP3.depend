@@ -237,3 +237,46 @@
 	"LinkedList.h"
 	"Employee.h"
 
+1637800523 source:c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1637800523 c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\linkedlist.h
+
+1637800523 c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\employee.h
+
+1637800523 source:c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\employee.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+
+1637800523 c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\controller.h
+
+1637800523 source:c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\input.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"input.h"
+
+1637800523 c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\input.h
+
+1637800523 source:c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"input.h"
+
+1637800523 source:c:\users\agust\desktop\auxcap\tp_laboratorio-1\tp-3 linkedlist\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
