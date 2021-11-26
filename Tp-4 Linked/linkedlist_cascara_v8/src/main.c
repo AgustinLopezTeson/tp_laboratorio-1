@@ -51,8 +51,7 @@ int main(void)
         startTesting(19); // ll_sort*/
 
 
- char seguir = 's';
-    char salir;
+    char seguir = 's';
     int id=1001;
     LinkedList* listaEmpleados = ll_newLinkedList();
 
@@ -95,6 +94,7 @@ int main(void)
             {
                 printf("Error al listar empleados\n");
             }
+            system("pause");
             break;
         case 7:
             if ( !controller_sortEmployee(listaEmpleados) )
@@ -115,30 +115,31 @@ int main(void)
                 printf("Error al guardar en modo binario\n");
             }
             break;
-      /*  case 10:
+     /*  case 10:
             if ( !controller_replaceEmployee(listaEmpleados) )
             {
                 printf("Error al reemplazar empleado\n");
             }
-            break;
-        case 11:
+            break;*/
+         case 11:
             if ( !controller_clearList(listaEmpleados) )
             {
                 printf("Error al borrar los empleados\n");
             }
             break;
         case 12:
-            if ( !controller_deleteList(listaEmpleados) )
+            if ( !controller_destroyList(listaEmpleados) )
             {
                 printf("Error al vaciar la lista\n");
             }
+            system("pause");
             listaEmpleados = NULL;
             break;
         default:
             printf("Opcion invalida\n");
-        }*/
-        system("pause");
         }
+        system("pause");
+
         }while(seguir == 's');
 return 0;
     }
