@@ -474,3 +474,56 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 
 }
 
+/*int controller_replaceEmployee(LinkedList* pArrayEmployee)
+{
+int todoOk=0;
+
+
+
+
+
+return todoOk;
+}*/
+
+
+int controller_clearList(LinkedList* pArrayListEmployee)
+{
+    int todoOk = 0;
+    char seguir;
+
+    if (pArrayListEmployee != NULL)
+    {
+        printf("Formatear la lista de empleados Confirmar... (S/N)\n");
+        fflush(stdin);
+        scanf("%c", &seguir);
+        if ( tolower(seguir) == 's' )
+        {
+            ll_clear(pArrayListEmployee);
+            printf("Lista formateada exitosanmente\n");
+            todoOk = 1;
+        }
+    }
+    return todoOk;
+}
+
+int controller_destroyList(LinkedList* pArrayListEmployee)
+{
+    int todoOk = 0;
+    char seguir;
+
+    if (pArrayListEmployee != NULL)
+    {
+        printf("Confirme destruccion de la lista enlazada(S/N)\n");
+        fflush(stdin);
+        scanf("%c", &seguir);
+        if ( tolower(seguir) == 's' )
+        {
+            ll_deleteLinkedList(pArrayListEmployee);
+            printf("Lista destruida con exito con exito\n");
+            odoOk = 1;
+
+        }
+    }
+    return todoOk;
+}
+
