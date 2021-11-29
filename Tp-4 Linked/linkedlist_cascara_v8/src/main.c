@@ -93,7 +93,11 @@ int main(void)
             if ( !controller_ListEmployee(listaEmpleados) )
             {
                 printf("Error al listar empleados\n");
+<<<<<<< HEAD
             }
+=======
+            }
+>>>>>>> bbff6cbc64ee46eddd8934d33a174e0a10a38e27
             system("pause");
             break;
         case 7:
@@ -131,7 +135,11 @@ int main(void)
             if ( !controller_destroyList(listaEmpleados) )
             {
                 printf("Error al vaciar la lista\n");
+<<<<<<< HEAD
             }
+=======
+            }
+>>>>>>> bbff6cbc64ee46eddd8934d33a174e0a10a38e27
             system("pause");
             listaEmpleados = NULL;
             break;

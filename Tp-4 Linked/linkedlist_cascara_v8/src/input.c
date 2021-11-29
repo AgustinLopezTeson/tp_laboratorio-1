@@ -23,7 +23,11 @@ int menu(){
     printf("7. Ordenar empleados\n\n");
     printf("8.Guardar los datos de los empleados en el archivo data.csv (modo texto).\n\n");
     printf("9. Guardar los datos de los empleados en el archivo data.csv (modo binario).\n\n");
+<<<<<<< HEAD
     printf("11. Limpiar la lista de empleados\n\n");
+=======
+    printf("11. Limpiar la lista de empleados\n\n");
+>>>>>>> bbff6cbc64ee46eddd8934d33a174e0a10a38e27
     printf("12. Destruir lista enlazada\n\n");
     printf( "\nIngrese la opcion correspondiente: \n");
 

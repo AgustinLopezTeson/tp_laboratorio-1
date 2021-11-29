@@ -7,6 +7,10 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee);
 int controller_sortEmployee(LinkedList* pArrayListEmployee);
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee);
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee);
+<<<<<<< HEAD
 int controller_clearList(LinkedList* pArrayListEmployee);
+=======
+int controller_clearList(LinkedList* pArrayListEmployee);
+>>>>>>> bbff6cbc64ee46eddd8934d33a174e0a10a38e27
 
 
