@@ -15,7 +15,7 @@ int pedirCadena(char cadena[], char mensaje[], int limite)
         fflush(stdin);
         gets(cadenaAuxiliar);
 
-        while (miStrlen(cadenaAuxiliar)>limite|| valCadena(cadenaAuxiliar) == 1 )
+        while ( miStrlen(cadenaAuxiliar) < 2 || miStrlen(cadenaAuxiliar) > limite || valCadena(cadenaAuxiliar) == 1)
         {
             printf("Solo se aceptan letras Reingrese (maximo %d): ", limite);
             fflush(stdin);

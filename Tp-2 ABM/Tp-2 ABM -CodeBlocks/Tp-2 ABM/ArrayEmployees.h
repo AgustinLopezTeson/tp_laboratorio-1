@@ -86,6 +86,29 @@ pointer received or employee not found]
 */
 int findEmployeeById(employee list[], int len, int id);
 
+/** \brief
+ *
+ * \param list[] employee
+ * \param len int
+ * \param pSalario float*
+ * \param sumaSalarios float*
+ * \return int
+ *
+ */
+int salaryPromedio(employee list[], int len, float *pSalario, float *sumaSalarios);
+
+
+/** \brief
+ *
+ * \param list[] employee
+ * \param len int
+ * \param salarioPromedio float
+ * \param totalSalario float
+ * \return int
+ *
+ */
+int cobranBien(employee list[], int len, float salarioPromedio, float totalSalario);
+
 /** \brief pide el id del emeplado que se desea remover y pone el campo isEmpty como true
 *
 * \param list Employee*

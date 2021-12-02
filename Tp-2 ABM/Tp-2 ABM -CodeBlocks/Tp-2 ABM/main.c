@@ -11,7 +11,11 @@ int main(void) {
 	char seguir = 's';
 	char salir;
 	int nextId = 20000;
+	float salarioPromedio;
+	float sumaSalarios;
 	employee list[TAM];
+	int cantEmpleados = 0;
+
 
 	if (initEmployees(list, TAM)) {
 		printf("Error al iniciar list\n");
@@ -24,6 +28,7 @@ int main(void) {
 				printf("No se pudo realizar el alta\n");
 			} else {
 				printf("Alta exitosa\n");
+				cantEmpleados++;
 			}
 
 			break;
@@ -32,10 +37,6 @@ int main(void) {
 			if (!editEmployee(list, TAM)) {
 				printf("No se pudo modificar\n");
 			}
-			/*else
-			 {
-			 printf("Cambios realizados con exito\n");
-			 }*/
 			break;
 		case 3:
 			if (!removeEmployee(list, TAM)) {
@@ -51,6 +52,30 @@ int main(void) {
 
 			break;
 		case 5:
+	            if ( cantEmpleados == 0)
+	            {
+	                printf("No hay empleados cargados para mostrar\n");
+	            }
+	            else
+	            {
+	                if( salaryPromedio(list, TAM, &salarioPromedio, &sumaSalarios) )
+	                {
+	                    printf("No se pudo mostrar la informacion de los salarios\n");
+	                }
+	                else
+	                {
+	                    system("cls");
+	                    printf("  *** Informe Salarios *** \n\n");
+	                    printf("Total salarios: $%.2f\n", sumaSalarios);
+	                    printf("Salario promedio: %.2f\n", salarioPromedio);
+	                    printf("---------------------------------------------------------------------------\n");
+	                    printf("   ID  Apellido                Nombre                 Sueldo       Sector  \n");
+	                    printf("---------------------------------------------------------------------------\n");
+	                    masPromedioCobran(list, TAM, salarioPromedio, sumaSalarios);
+	                }
+	            }
+	            break;
+		case 6:
 			printf("Esta seguro que quiere salir? (S/N)\n");
 			fflush(stdin);
 			scanf("%c", &salir);
@@ -67,5 +92,6 @@ int main(void) {
 		system("pause");
 
 	} while (seguir == 's');
+
 	return 1;
 }
