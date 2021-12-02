@@ -111,8 +111,26 @@ int employee_setSueldo(Employee* this,float sueldo)
 void list_Employee(Employee* this)
 {
 
-    printf("%3d   %10s           %4d          %7.2f\n\n",this->id,this->nombre,this->horasTrabajadas,this->sueldo);
+    int todoOk = 0;
+    int id;
+    char nombre[50];
+    int horasTrabajadas;
+    float sueldo;
 
+    if (this != NULL)
+    {
+        todoOk = 1;
+        if ( employee_getId( this, &id ) &&
+                employee_getNombre( this, nombre ) &&
+                employee_getHorasTrabajadas( this, &horasTrabajadas) &&
+                employee_getSueldo(this, &sueldo)
+           )
+        {
+            printf ("%-7d %-15s %-8d            %-6.2f\n", id, nombre, horasTrabajadas, sueldo);
+            todoOk = 1;
+        }
+    }
+    return todoOk;
 }
 
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr,char* sueldoStr)

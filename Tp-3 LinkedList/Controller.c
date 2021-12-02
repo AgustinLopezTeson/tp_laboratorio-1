@@ -46,7 +46,7 @@ int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
 int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
 {
 
-    FILE* f= fopen("data.bin","rb");
+    FILE* f= fopen(path,"rb");
 
     if(f==NULL && pArrayListEmployee==NULL)
     {
@@ -277,7 +277,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
     int todoOk=0;
-    Employee* auxEmp=NULL;
+    Employee* auxEmp;
     if(pArrayListEmployee!=NULL)
     {
         printf("ID        NOMBRE      HorasTrabajadas      SUELDO\n\n");
@@ -388,7 +388,7 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
     int id;
     char nombre[50];
     int horasTrabajadas;
-    int sueldo;
+    float sueldo;
     Employee* auxEmpleado;
 
     if ( path != NULL && pArrayListEmployee != NULL )
@@ -412,7 +412,7 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
                     employee_getSueldo(auxEmpleado, &sueldo)
                )
             {
-                fprintf(f, "%d,%s,%d,%d\n", id, nombre, horasTrabajadas, sueldo);
+                fprintf(f, "%d,%s,%d,%f\n", id, nombre, horasTrabajadas, sueldo);
                 todoOk = 1;
             }
         }
@@ -454,7 +454,7 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 
                 if ( (auxEmpleado) != NULL )
                 {
-                    fwrite( auxEmpleado, sizeof(Employee), 1, f );
+                    fwrite( auxEmpleado, sizeof(Employee),1, f);
                     todoOk = 1;
                 }
         }
