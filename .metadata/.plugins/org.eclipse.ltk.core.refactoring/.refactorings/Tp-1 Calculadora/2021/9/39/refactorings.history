@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Tp-1 Calculadora/src/Funciones&apos; to &apos;Funciones.h&apos;" description="Rename resource &apos;Funciones&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Funciones" name="Funciones.h" stamp="1632348338332" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Tp-1 Calculadora/src/Funciones&apos; to &apos;Funciones.c&apos;" description="Rename resource &apos;Funciones&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Funciones" name="Funciones.c" stamp="1632348402287" updateReferences="true"/>
-</session>
