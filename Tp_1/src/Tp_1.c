@@ -19,6 +19,7 @@ int main() {
 
 	int respuesta;
 	int kilometros=0;
+	int flagEnvio=0;
 	float preAerolineas=0;
 	float preLatam=0;
 	float tarjetaLatam;
@@ -30,7 +31,7 @@ int main() {
 	float btcAerolineas;
 	float unitarioAerolineas;
 	float diferencia;
-	int seguir =1;
+	int seguir = 1;
 
 
 	do
@@ -44,15 +45,32 @@ int main() {
 	case 1:
 		printf("Ingrese los kilometros");
 		scanf("%d",&kilometros);
+		flagEnvio=1;
 		break;
 	case 2:
-		precioVuelos(&preAerolineas,&preLatam);
+		if(flagEnvio==0)
+		{
+			printf("Cargar KM primero\n\n");
+
+		}else{
+			precioVuelos(&preAerolineas,&preLatam);
+		}
 		break;
 	case 3:
-		calcularTodosLosCostos(kilometros,preAerolineas,preLatam,&tarjetaLatam,&creditoLatam,&btcLatam,&unitarioLatam,&tarjetaAerolineas,&creditoAerolineas,&btcAerolineas,&unitarioAerolineas,&diferencia);
+		if(flagEnvio==0)
+		{
+			printf("\nCargar KM primero\n\n");
+		}else{
+			calcularTodosLosCostos(kilometros,preAerolineas,preLatam,&tarjetaLatam,&creditoLatam,&btcLatam,&unitarioLatam,&tarjetaAerolineas,&creditoAerolineas,&btcAerolineas,&unitarioAerolineas,&diferencia);
+		}
 		break;
 	case 4:
+		if(flagEnvio==0)
+		{
+			printf("\nCargar KM primero\n\n");
+		}else{
 		informarResultado(tarjetaLatam,creditoLatam,btcLatam,unitarioLatam,tarjetaAerolineas,creditoAerolineas,btcAerolineas,unitarioAerolineas,diferencia);
+		}
 		break;
 	case 5:
 		cargaForzada();
@@ -63,7 +81,7 @@ int main() {
 		break;
 	default:
 		printf("Ingrese una  opcion correcta\n\n");
-		break;C
+		break;
 	}
 	}while(seguir==1);
 
