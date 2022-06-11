@@ -12,16 +12,17 @@ typedef struct
 {
 	int id;
 	char nombre[50];
-	char apellido[50];
+	char lastname[50];
 	float precio;
-	int tipoPasajero;
 	char codigoVuelo[4];
+	int statusFlight;
 	int isEmpty;
 
 }Passenger;
 
 Passenger* Passenger_new();
-Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* tipoPasajeroStr);
+Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr,char* precioStr,char* codigoVueloStr,char* statusFlightStr);
+Passenger* Passenger_newParametrosN(int id,char* nombre,char* apellido,float precio,int statusFlight,char* codigoVuelo);
 void Passenger_delete();
 
 int Passenger_setId(Passenger* this,int id);
