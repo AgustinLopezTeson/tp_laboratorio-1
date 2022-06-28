@@ -19,13 +19,13 @@ int isEmpty;
 int initPassengers(Passenger* list,int len);
 int addPassenger(Passenger* list,int len, int id, char name[],char lastName[],float price,int typePassenger,char flycode[]);
 int findPassengerById(Passenger* list, int len, int id);
-int removePassenger(Passenger* list,int len, int id);
+int removePassenger(Passenger* list,int len);
 int sortPassengers(Passenger* list, int len, int order);
 int printPassengers(Passenger* list,int length);
 int sortPassengers(Passenger* list,int len,int order);
+void mostrarPasajero(Passenger list);
 
-
-int buscarLibre(Passenger list[] ,int tam, int *id);
+int buscarLibre(Passenger list[] ,int tam);
 int menu();
 int cargarPasajeros(Passenger list[],int tam,int*pNextId);
 

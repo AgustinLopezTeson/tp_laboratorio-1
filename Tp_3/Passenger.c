@@ -4,6 +4,7 @@
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Passenger.h"
+#include "input.h"
 
 Passenger* Passenger_new()
 {
@@ -59,7 +60,7 @@ int Passenger_setNombre(Passenger* this,char* nombre)
     if(this != NULL && nombre!=NULL && strlen(nombre)<20)
     {
         strcpy(this->nombre,nombre);
-        todoOk =1;
+        todoOk=1;
     }
     else
     {
@@ -120,7 +121,7 @@ int Passenger_setCodigoVuelo(Passenger* this,char* codigoVuelo)
     }
     else
     {
-        printf("Problema con el sueldo ");
+        printf("Problema con el codigo de vuelo ");
     }
 
 
@@ -144,6 +145,77 @@ int Passenger_setTipoPasajero(Passenger* this,int tipoPasajero)
 
     return todoOk;
 }
+
+
+int Passenger_getId(Passenger* this,int* id)
+{
+    int todoOk = 0;
+    if (this != NULL && id != NULL)
+    {
+        *id = this->id;
+        todoOk = 1;
+    }
+    return todoOk;
+
+}
+
+int Passenger_getNombre(Passenger* this,char* nombre)
+{
+    int todoOk = 0;
+    if (this != NULL && nombre != NULL )
+    {
+        strcpy(nombre, this->nombre);
+        todoOk = 1;
+    }
+    return todoOk;
+}
+
+int Passenger_getApellido(Passenger* this,char* apellido)
+{
+
+    int todoOk = 0;
+    if (this != NULL && apellido != NULL )
+    {
+        strcpy(apellido, this->lastname);
+        todoOk = 1;
+    }
+    return todoOk;
+}
+
+int Passenger_getPrecio(Passenger* this,float* precio)
+{
+    int todoOk = 0;
+    if (this != NULL && precio != NULL)
+    {
+        *precio = this->precio;
+        todoOk = 1;
+    }
+    return todoOk;
+}
+
+int Passenger_getCodigoVuelo(Passenger* this,char* codigoVuelo)
+{
+    int todoOk = 0;
+    if (this != NULL && codigoVuelo > 0)
+    {
+    	strcpy(codigoVuelo, this->codigoVuelo);
+        todoOk = 1;
+    }
+    return todoOk;
+}
+
+int Passenger_getTipoPasajero(Passenger* this,int* tipoPasajero)
+{
+    int todoOk = 0;
+    if (this != NULL && tipoPasajero != NULL)
+    {
+        *tipoPasajero = this->statusFlight;
+        todoOk = 1;
+    }
+
+    return todoOk;
+}
+
 
 void list_Passenger(Passenger* this)
 {
@@ -284,7 +356,7 @@ Passenger* Passenger_newParametrosN(int id,char* nombre,char* apellido,float pre
 
 
 
-/*int searchPassengerId(LinkedList* pArrayListPassenger, int id)
+int searchPassengerId(LinkedList* pArrayListPassenger, int id)
 {
     int indice = -1;
     int idAux;
@@ -299,78 +371,9 @@ Passenger* Passenger_newParametrosN(int id,char* nombre,char* apellido,float pre
         }
     }
     return indice;
-}*/
-
-int Passenger_getId(Passenger* this,int* id)
-{
-    int todoOk = 0;
-    if (this != NULL && id != NULL)
-    {
-        *id = this->id;
-        todoOk = 1;
-    }
-    return todoOk;
-
 }
-
-int Passenger_getNombre(Passenger* this,char* nombre)
-{
-    int todoOk = 0;
-    if (this != NULL && nombre != NULL )
-    {
-        strcpy(nombre, this->nombre);
-        todoOk = 1;
-    }
-    return todoOk;
-}
-
-int Passenger_getApellido(Passenger* this,char* apellido)
-{
-
-    int todoOk = 0;
-    if (this != NULL && apellido != NULL )
-    {
-        strcpy(apellido, this->lastname);
-        todoOk = 1;
-    }
-    return todoOk;
-}
-
-int Passenger_getPrecio(Passenger* this,float* precio)
-{
-    int todoOk = 0;
-    if (this != NULL && precio != NULL)
-    {
-        *precio = this->precio;
-        todoOk = 1;
-    }
-    return todoOk;
-}
-
-int Passenger_getCodigoVuelo(Passenger* this,char* codigoVuelo)
-{
-    int todoOk = 0;
-    if (this != NULL && codigoVuelo > 0)
-    {
-    	strcpy(codigoVuelo, this->codigoVuelo);
-        todoOk = 1;
-    }
-    return todoOk;
-}
-
-int Passenger_getTipoPasajero(Passenger* this,int* tipoPasajero)
-{
-    int todoOk = 0;
-    if (this != NULL && tipoPasajero != NULL)
-    {
-        *tipoPasajero = this->statusFlight;
-        todoOk = 1;
-    }
-
-    return todoOk;
-}
-
-/*int compPassengerprecio(void* pPassenger, void* sPassenger)
+/*
+int compPassengerprecio(void* pPassenger, void* sPassenger)
 {
     int todoOk= 0;
 
@@ -385,15 +388,15 @@ int Passenger_getTipoPasajero(Passenger* this,int* tipoPasajero)
     return todoOk;
 }
 
-int compPassengerSueldo(void* pPassenger, void* sPassenger)
+int compPassengerEstadoVuelo(void* pPassenger, void* sPassenger)
 {
     int todoOk= 0;
 
-    if(((Passenger*)pPassenger)->sueldo > ((Passenger*)sPassenger)->sueldo)
+    if(((Passenger*)pPassenger)->statusFlight > ((Passenger*)sPassenger)->statusFlight)
     {
         todoOk++;
     }
-    if(((Passenger*)pPassenger)->sueldo < ((Passenger*)sPassenger)->sueldo)
+    if(((Passenger*)pPassenger)->statusFlight < ((Passenger*)sPassenger)->statusFlight)
     {
         todoOk --;
     }
@@ -420,5 +423,6 @@ int buscarMayorId(LinkedList* pArrayListPassenger)
         }
     }
     return mayor;
+}
 }
 */

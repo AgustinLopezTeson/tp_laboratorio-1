@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "Passenger.h"
+#include "input.h"
 
 /** \brief Carga los datos de los pasajeros desde el archivo data.csv (modo texto).
  *
@@ -22,7 +23,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
 	    {
 	        if(parser_PassengerFromText(f,pArrayListPassenger))
 	        {
-	            printf("Hubo un error en cargar los empleados");
+	              printf("Hubo un error en cargar los empleados");
 	        }
 	        else
 	        {
@@ -168,15 +169,15 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 	                    system("cls");
 	                    printf("  Editar estado\n");
 	                    printf("Ingrese el sueldo: ");
-	                    scanf("%d", &sueldo);
+	                    scanf("%d", &estadoDelVuelo);
 
-	                    printf("Confirma cambio sueldo? (S/N)\n");
+	                    printf("Confirma cambio estado? (S/N)\n");
 	                    fflush(stdin);
 	                    scanf("%c", &confirma);
 	                    confirma = toupper(confirma);
 	                    if (confirma == 'S')
 	                    {
-	                        Passenger_setSueldo(auxPassenger, sueldo);
+	                        Passenger_setTipoPasajero(auxPassenger, estadoDelVuelo);
 	                    }
 	                    else
 	                    {
@@ -232,7 +233,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 	    if ( pArrayListPassenger != NULL )
 	    {
 
-	        printf("Baja de empleado\n");
+	        printf("Baja de Pasajero\n");
 
 	        printf("Ingrese id: ");
 	        scanf("%d", &id);
@@ -246,7 +247,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 	        {
 	            auxPass = ll_get(pArrayListPassenger, indice);
 	            printf("Empleado seleccionado: \n\n");
-	            printf("ID        NOMBRE      HorasTrabajadas      SUELDO\n\n");
+	            printf("Id  Nombre Apellido Precio  CodigoVuelo    EstadoVuelo    \n");
 	            list_Passenger(auxPass);
 	            printf("\n");
 	            printf("Confirma la baja? (S/N)\n");
@@ -277,7 +278,7 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
 	    Passenger* auxEmp;
 	    if(pArrayListPassenger!=NULL)
 	    {
-	        printf("ID        NOMBRE      HorasTrabajadas      SUELDO\n\n");
+	    	printf("Id  Nombre Apellido Precio  CodigoVuelo    EstadoVuelo    \n");
 	        for(int i = 0 ; i<ll_len(pArrayListPassenger); i++)
 	        {
 	            auxEmp=(Passenger* )ll_get(pArrayListPassenger,i);
@@ -299,17 +300,17 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
  */
 int controller_sortPassenger(LinkedList* pArrayListPassenger)
 {
-	char seguir = 's';
+		char seguir = 's';
 	    char salir;
 
-	    int todoOk = 0;
+	    int todoOk = 1;
 	    int opcion;
 	    if ( pArrayListPassenger != NULL )
 	    {
 	        system("cls");
-	        printf("***Menu Ordenar empleados***\n");
+	        printf("***Menu Ordenar Pasajeros***\n");
 
-	        do
+	       /* do
 	        {
 	            opcion = subMenuComp();
 
@@ -360,7 +361,7 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
 	            system("pause");
 	        }
 	        while(seguir == 's');
-	    }
+	    }*/
 	    return todoOk;
 
 }
@@ -378,8 +379,10 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 	    FILE* f;
 	    int id;
 	    char nombre[50];
-	    int horasTrabajadas;
-	    float sueldo;
+	    char apellido[50];
+	    float precio;
+	    int estadoVuelo;
+	    char codigoVuelo[5];
 	    Passenger* auxPassanger;
 
 	    if ( path != NULL && pArrayListPassenger != NULL )
@@ -392,18 +395,20 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 
 	        }
 
-	        fprintf( f, "Id,Nombre,Horas Trabajadas,Sueldo\n" );
+	        fprintf( f, "Id  Nombre Apellido Precio  CodigoVuelo    EstadoVuelo    \n" );
 
 	        for (int i = 0; i < ll_len(pArrayListPassenger); i++)
 	        {
 	            auxPassanger = ll_get(pArrayListPassenger, i);
 	            if ( Passenger_getId( auxPassanger, &id ) &&
 	                    Passenger_getNombre( auxPassanger, nombre ) &&
-	                    Passenger_getHorasTrabajadas( auxPassanger, &horasTrabajadas) &&
-	                    Passenger_getSueldo(auxPassanger, &sueldo)
+	    				Passenger_getApellido(auxPassanger,apellido)&&
+	                    Passenger_getPrecio( auxPassanger, &precio) &&
+	                    Passenger_getCodigoVuelo(auxPassanger, codigoVuelo)&&
+	    				Passenger_getTipoPasajero(auxPassanger,&estadoVuelo)
 	               )
 	            {
-	                fprintf(f, "%d,%s,%d,%f\n", id, nombre, horasTrabajadas, sueldo);
+	                fprintf(f, "%d,%s,%s,%f,%s,%d\n", id, nombre,apellido,precio,codigoVuelo,estadoVuelo);
 	                todoOk = 1;
 	            }
 	        }
@@ -459,4 +464,4 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 	    return todoOk;
 
 }
-
+}

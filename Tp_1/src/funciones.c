@@ -108,17 +108,27 @@ int calcularTodosLosCostos(int kilometros,float pAerolineas, float pLatam,float*
 
 void informarResultado(float tarjetaLatam,float creditoLatam,float btcLatam,float unitarioLatam,float tarjetaAerolineas,float creditoAerolineas,float btcAerolineas,float unitarioAerolineas,float diferencia)
 {
+
 	printf("\n\nLatam:\n\n");
 	printf("a) Precio con tarjeta de debito: $%.2f\n",tarjetaLatam);
 	printf("b) Precio con tarjeta de credito: $%.2f\n",creditoLatam);
 	printf("c) Precio pagando con bitcoin: %.6f BTC\n",btcLatam);
-	printf("d) Precio Unitario: $%.2f\n",unitarioLatam);
+	if(unitarioLatam>0)
+	{
+		printf("d) Precio Unitario: $%.2f\n",unitarioLatam);
+	}else
+	{printf("d)ERROR");}
+
 
 	printf("\nAerolineas:\n\n");
 	printf("a) Precio con tarjeta de debito: $%.2f\n",tarjetaAerolineas);
 	printf("b) Precio con tarjeta de credito: $%.2f\n",creditoAerolineas);
 	printf("c) Precio pagando con bitcoin: %.6f BTC\n",btcAerolineas);
-	printf("d) Precio Unitario: $%.2f\n",unitarioAerolineas);
+	if(unitarioAerolineas>0)
+		{
+			printf("d) Precio Unitario: $%.2f\n",unitarioAerolineas);
+		}else
+		{printf("d)ERROR");}
 
 	printf("\nLa diferencia de precio es: $%f\n\n",diferencia);
 
