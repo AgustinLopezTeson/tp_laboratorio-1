@@ -10,15 +10,15 @@ int menu(){
     int opcionElegida;
 
     printf("\n                ****  Menu de Opciones  **** \n\n");
-    printf("1.Cargar los datos de los empleados desde el archivo data.csv (modo texto).\n\n");
-    printf("2. Cargar los datos de los empleados desde el archivo data.csv (modo binario)\n\n");
-    printf("3. Alta de empleado\n\n");
-    printf("4. Modificar datos de empleado\n\n");
-    printf("5. Baja de empleado\n\n");
-    printf("6. Listar empleados \n\n");
-    printf("7. Ordenar empleados\n\n");
-    printf("8.Guardar los datos de los empleados en el archivo data.csv (modo texto).\n\n");
-    printf("9. Guardar los datos de los empleados en el archivo data.csv (modo binario).\n\n");
+    printf("1.Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).\n\n");
+    printf("2. Cargar los datos de los pasajeros desde el archivo data.csv (modo binario)\n\n");
+    printf("3. Alta de pasajero\n\n");
+    printf("4. Modificar datos de pasajero\n\n");
+    printf("5. Baja de pasajero\n\n");
+    printf("6. Listar pasajeros \n\n");
+    printf("7. Ordenar pasajeros\n\n");
+    printf("8.Guardar los datos de los pasajeros en el archivo data.csv (modo texto).\n\n");
+    printf("9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario).\n\n");
     printf("10. Salir\n\n");
     printf( "\nIngrese la opcion correspondiente: \n");
 
@@ -31,10 +31,10 @@ int menuDeModificaciones()
 {
     int opcion;
 
-    printf("\n\n        *** Modificar Empleado ***          \n");
+    printf("\n\n        *** Modificar Pasajero ***          \n");
     printf("------------------------------------------------\n");
-    printf("    1- Horas Trabajadas\n\n");
-    printf("    2- Sueldo\n\n");
+    printf("    1- Nombre\n\n");
+    printf("    2- Precio\n\n");
     printf("    3- Salir\n\n");
 
     printf("Ingrese opcion: \n");

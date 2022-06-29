@@ -19,12 +19,16 @@ Passenger* Passenger_new()
         new_Passenger->id= 0;
         strcpy(new_Passenger->nombre," ");
         strcpy(new_Passenger->lastname," ");
-        new_Passenger->precio= 0000;
-        new_Passenger->statusFlight=0000;
+        new_Passenger->precio= 0;
         strcpy(new_Passenger->codigoVuelo," ");
+        strcpy(new_Passenger->typePassenger," ");
+        strcpy(new_Passenger->statusFlight," ");
         new_Passenger->isEmpty=1;
 
-    }
+    }else{
+
+        printf("Hubo un problema");
+     }
 
     return new_Passenger;
 }
@@ -94,7 +98,7 @@ int Passenger_setPrecio(Passenger* this,float precio)
 
     int todoOk=0;
 
-    if(this !=NULL && precio>0 )
+    if(this !=NULL)
     {
         this->precio=precio;
         todoOk = 1;
@@ -129,19 +133,37 @@ int Passenger_setCodigoVuelo(Passenger* this,char* codigoVuelo)
 
 
 }
-int Passenger_setTipoPasajero(Passenger* this,int tipoPasajero)
+
+int Passenger_setTipoPasajero(Passenger* this,char* tipoPasajero)
 {
     int todoOk=0;
 
-    if(this !=NULL && tipoPasajero>=0)
+    if(this !=NULL)
     {
-        this->statusFlight=tipoPasajero;
+    	strcpy(this->typePassenger,tipoPasajero);
         todoOk =1;
     }
     else
     {
-        printf("Problema con el Status Flight");
+        printf("Problema con el tipo de pasajero");
     }
+    return todoOk;
+}
+
+int Passenger_setEstadoVuelo(Passenger* this,char* estadoVuelo)
+{
+    int todoOk=0;
+
+    if(this !=NULL)
+    {
+    	strcpy(this->statusFlight,estadoVuelo);
+        todoOk =1;
+    }
+    else
+    {
+        printf("Problema con el estado del vuelo ");
+    }
+
 
     return todoOk;
 }
@@ -185,7 +207,7 @@ int Passenger_getApellido(Passenger* this,char* apellido)
 int Passenger_getPrecio(Passenger* this,float* precio)
 {
     int todoOk = 0;
-    if (this != NULL && precio != NULL)
+    if (this != NULL && precio > 0)
     {
         *precio = this->precio;
         todoOk = 1;
@@ -196,7 +218,7 @@ int Passenger_getPrecio(Passenger* this,float* precio)
 int Passenger_getCodigoVuelo(Passenger* this,char* codigoVuelo)
 {
     int todoOk = 0;
-    if (this != NULL && codigoVuelo > 0)
+    if (this != NULL && codigoVuelo!=NULL)
     {
     	strcpy(codigoVuelo, this->codigoVuelo);
         todoOk = 1;
@@ -204,18 +226,29 @@ int Passenger_getCodigoVuelo(Passenger* this,char* codigoVuelo)
     return todoOk;
 }
 
-int Passenger_getTipoPasajero(Passenger* this,int* tipoPasajero)
+int Passenger_getTipoPasajero(Passenger* this,char* tipoPasajero)
 {
     int todoOk = 0;
     if (this != NULL && tipoPasajero != NULL)
     {
-        *tipoPasajero = this->statusFlight;
+    	strcpy(tipoPasajero, this->typePassenger);
         todoOk = 1;
     }
 
     return todoOk;
 }
 
+int Passenger_getEstadoVuelo(Passenger* this,char* estadoVuelo)
+{
+    int todoOk = 0;
+    if (this != NULL && estadoVuelo != NULL)
+    {
+    	strcpy(estadoVuelo, this->statusFlight);
+        todoOk = 1;
+    }
+
+    return todoOk;
+}
 
 void list_Passenger(Passenger* this)
 {
@@ -224,26 +257,28 @@ void list_Passenger(Passenger* this)
     char apellido[50];
     float precio;
     char codigoVuelo[4];
-    int statusFlight;
+    char typePassenger[21];
+    char statusFlight[21];
 
     if (this != NULL)
     {
 
-        if ( Passenger_getId( this, &id ) &&
-                Passenger_getNombre( this, nombre ) &&
+        if ( 	Passenger_getId(this,&id) &&
+                Passenger_getNombre(this, nombre ) &&
 				Passenger_getApellido(this,apellido)&&
-                Passenger_getPrecio( this, &precio) &&
-                Passenger_getCodigoVuelo(this, codigoVuelo)&&
-				Passenger_getTipoPasajero(this,&statusFlight)
+                Passenger_getPrecio( this,&precio) &&
+                Passenger_getCodigoVuelo(this,codigoVuelo)&&
+				Passenger_getTipoPasajero(this,typePassenger)&&
+				Passenger_getEstadoVuelo(this,statusFlight)
            )
         {
-            printf ("%-7d %-15s %-15s %-6.2f   %-7s    %-6.2d\n", id, nombre,apellido, precio, codigoVuelo,statusFlight);
+            printf ("%-4d %-10s %-10s     %-10.2f    %-10s   %-15s%-5s\n", id, nombre,apellido, precio, codigoVuelo,typePassenger,statusFlight);
 
         }
     }
 }
 
-Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr,char* precioStr,char* codigoVueloStr,char* statusFlightStr)
+Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr,char* precioStr,char* codigoVueloStr,char* typePassengerSTR,char* statusFlightStr)
 {
 
 
@@ -257,9 +292,10 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr
         if(!(    Passenger_setId(new_Emp,atoi(idStr))&&
                  Passenger_setNombre(new_Emp,nombreStr)&&
 				 Passenger_setApellido(new_Emp,apellidoStr)&&
-				 Passenger_setCodigoVuelo(new_Emp,codigoVueloStr)&&
                  Passenger_setPrecio(new_Emp,atof(precioStr))&&
-                 Passenger_setTipoPasajero(new_Emp,atoi(statusFlightStr))))
+				 Passenger_setCodigoVuelo(new_Emp,codigoVueloStr)&&
+                 Passenger_setTipoPasajero(new_Emp,typePassengerSTR)&&
+				 Passenger_setEstadoVuelo(new_Emp,statusFlightStr)))
         {
             printf("Hubo un problema");
             Passenger_delete(new_Emp);
@@ -279,40 +315,47 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr
 int  new_PassengerManual(LinkedList* pArrayListPassenger)
 {
 
-    int todoOk=0;
-    char nombre [30];
-    char apellido[30];
+    int todoOk= 0;
+    char nombre [50];
+    char apellido[50];
     float precio;
-    int statusFlight;
-    char codigoVuelo[4];
+    char codigoVuelo[8];
+    char typePassenger[21];
+    char statusFlight[21];
     int id;
 
     Passenger* aux=NULL;
-    printf("*** Alta de Empleado***\n\n");
-
+    printf("*** Alta de Pasajero***\n\n");
+    controller_ListPassenger(pArrayListPassenger);
     printf("\n\nIngrese la id: ");
     scanf("%d", &id);
-
+printf("%d",id);
     printf("\n\nIngrese el nombre: ");
     fflush(stdin);
     gets(nombre);
-
+printf("%s",nombre);
     printf("\n\nIngrese el Apellido: ");
     fflush(stdin);
-    gets(nombre);
-
+    gets(apellido);
+printf("%s",apellido);
     printf("\n\nIngrese precio:");
     scanf("%f",&precio);
-
-    printf("\n\n Ingrese el Status Flight: ");
-    scanf("%d", &statusFlight);
-
-    printf("\n\nIngrese el codigo de Vuelo: ");
+printf("%.2f",precio);
+    printf("\n\nIngrese el codigo de Vuelo(4 Caracteres): ");
     fflush(stdin);
     gets(codigoVuelo);
+printf("%s",codigoVuelo);
+    printf("\n\n Ingrese el tipo de pasajero(First Class/Executive Class/Economy Class): ");
+    fflush(stdin);
+    gets(typePassenger);
+printf("%s",typePassenger);
+    printf("\n\n Ingrese el estado del vuelo(Aterrizado/En horario): ");
+    fflush(stdin);
+    gets(statusFlight);
+printf("%s",statusFlight);
 
 
-    aux=Passenger_newParametrosN(id,nombre,apellido,precio,statusFlight,codigoVuelo);
+    aux=Passenger_newParametrosN(id,nombre,apellido,precio,codigoVuelo,typePassenger,statusFlight);
 
     if(aux!=NULL)
     {
@@ -324,7 +367,7 @@ int  new_PassengerManual(LinkedList* pArrayListPassenger)
 }
 
 
-Passenger* Passenger_newParametrosN(int id,char* nombre,char* apellido,float precio,int statusFlight,char* codigoVuelo)
+Passenger* Passenger_newParametrosN(int id,char* nombre,char* apellido,float precio,char* codigoVuelo,char* typePassenger,char* statusFlight)
 {
 
     Passenger* new_Emp;
@@ -337,8 +380,9 @@ Passenger* Passenger_newParametrosN(int id,char* nombre,char* apellido,float pre
                  Passenger_setNombre(new_Emp,nombre)&&
 				 Passenger_setApellido(new_Emp,apellido)&&
                  Passenger_setPrecio(new_Emp,precio)&&
-				 Passenger_setTipoPasajero(new_Emp,statusFlight)&&
-                 Passenger_setCodigoVuelo(new_Emp,codigoVuelo)))
+                 Passenger_setCodigoVuelo(new_Emp,codigoVuelo)&&
+				 Passenger_setTipoPasajero(new_Emp,typePassenger)&&
+				 Passenger_setEstadoVuelo(new_Emp,statusFlight)))
         {
             printf("Hubo un problema");
             Passenger_delete(new_Emp);
@@ -351,6 +395,14 @@ Passenger* Passenger_newParametrosN(int id,char* nombre,char* apellido,float pre
         printf("No se pudo conseguir memoria");
     }
 
+    printf("%d\n",new_Emp->id);
+    printf("%s\n",new_Emp->nombre);
+    printf("%s\n",new_Emp->lastname);
+    printf("%.2f\n",new_Emp->precio);
+    printf("%s\n",new_Emp->codigoVuelo);
+    printf("%s\n",new_Emp->typePassenger);
+    printf("%s\n",new_Emp->statusFlight);
+    system("pause");
     return new_Emp;
 }
 

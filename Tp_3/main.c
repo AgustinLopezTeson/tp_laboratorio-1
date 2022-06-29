@@ -23,7 +23,7 @@
 
 int main()
 {
-	//int id=1001;
+	setbuf(stdout,NULL);
     char seguir='s';
     LinkedList* listaPasajeros = ll_newLinkedList();
     do{
@@ -66,13 +66,13 @@ int main()
             }
             system("pause");
             break;
-        case 7:
+       /* case 7:
             if ( !controller_sortPassenger(listaPasajeros) )
             {
                 printf("Error al  ordenar los empleados\n");
             }
-            break;
-       /* case 8:
+            break;*/
+        case 8:
             if ( !controller_saveAsText("data1.csv", listaPasajeros) )
             {
                 printf("Error al guardar en texto\n");
@@ -86,7 +86,7 @@ int main()
             break;
         case 10:
             seguir='n';
-            break;*/
+            break;
         default:
             printf("\nOpcion Incorrecta \n\n");
             break;
