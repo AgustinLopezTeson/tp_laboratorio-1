@@ -294,80 +294,67 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
 	    return todoOk;
 }
 
-/** \brief Ordenar pasajeros
+int compPassengerprecio(void* pPassenger, void* sPassenger)
+{
+    int todoOk= 0;
+
+    if( ((Passenger*)pPassenger)->precio > ((Passenger*)sPassenger)->precio )
+    {
+        todoOk++;
+    }
+    if( ((Passenger*)pPassenger)->precio < ((Passenger*)sPassenger)->precio )
+    {
+        todoOk--;
+    }
+    return todoOk;
+}
+
+/** *\brief Ordenar pasajeros
  *
  * \param path char*
  * \param pArrayListPassenger LinkedList*
  * \return int
- *
  */
-//int controller_sortPassenger(LinkedList* pArrayListPassenger)
-//{
-	//	char seguir = 's';
-	 //   char salir;
 
-	 //   int todoOk = 1;
-	 //   int opcion;
-	 //   if ( pArrayListPassenger != NULL )
-	    //{
-	      //  system("cls");
-	      //  printf("***Menu Ordenar Pasajeros***\n");
+int controller_sortPassenger(LinkedList* pArrayListPassenger)
+{
 
-	       /* do
-	        {
-	            opcion = subMenuComp();
-
-	            switch (opcion)
+	    int todoOk = 1;
+	    if ( pArrayListPassenger != NULL )
+	    {
+	        	system("cls");
+	        	int retorno;
+	            printf("Filtar Ascendente o Descendente? (a/d): ");
+	            fflush(stdin);
+	            char opcion = getchar();
+	            opcion = tolower(opcion);
+	            while (opcion != 'a' && opcion != 'd')
 	            {
-	            case 1:
-	                system("cls");
-	                printf("  Ordenar Horas trabajadas de menor a mayor  \n");
-	               // ll_sort( pArrayListPassenger, compPassengerHorasTrabajadas, 1 );
-	                controller_ListPassenger(pArrayListPassenger);
-	                break;
-	            case 2:
-	                system("cls");
-	                printf("  Ordenar  Horas trabajadas de mayor a menor\n");
-	             //   ll_sort( pArrayListPassenger, compPassengerHorasTrabajadas, 0 );
-	                controller_ListPassenger(pArrayListPassenger);
-	                break;
-	            case 3:
-	                system("cls");
-	                printf("  Ordenar  Sueldo de menor a mayor\n");
-	             //   ll_sort( pArrayListPassenger, compPassengerSueldo, 1 );
-	                controller_ListPassenger(pArrayListPassenger);
-	                break;
-	            case 4:
-	                system("cls");
-	                printf("  Ordenar  Sueldo de mayor a menor\n");
-	               // ll_sort( pArrayListPassenger, compPassengerSueldo, 0 );
-	                controller_ListPassenger(pArrayListPassenger);
-	                break;
-	            case 5:
-	                printf("Esta seguro que quiere salir? (S/N)\n");
+	                printf("Invalido. Reingrese(a/d): ");
 	                fflush(stdin);
-	                scanf("%c", &salir);
-	                salir = toupper(salir);
-	                if (salir == 'S')
-	                {
-	                    seguir = 'n';
-	                }
-	                else
-	                {
-	                    break;
-	                }
-	                break;
-	            default:
-	                printf("Opcion invalida\n");
-	                break;
+	                opcion = getchar();
+	                opcion = tolower(opcion);
 	            }
-	            system("pause");
-	        }
-	        while(seguir == 's');
-	    }*/
-	   // return todoOk;
+	            if (opcion == 'a')
+	            {
+	                retorno = 1;
+	                ll_sort( pArrayListPassenger, compPassengerprecio, retorno );
 
-//}
+	            }
+	            else
+	            {
+	                retorno = 0;
+	                ll_sort( pArrayListPassenger, compPassengerprecio, retorno );
+
+	            }
+
+	                controller_ListPassenger(pArrayListPassenger);
+	                system("pause");
+
+	    }
+	    return todoOk;
+
+}
 
 /** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo texto).
  *

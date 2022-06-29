@@ -66,12 +66,12 @@ int main()
             }
             system("pause");
             break;
-       /* case 7:
+       case 7:
             if ( !controller_sortPassenger(listaPasajeros) )
             {
                 printf("Error al  ordenar los empleados\n");
             }
-            break;*/
+            break;
         case 8:
             if ( !controller_saveAsText("data1.csv", listaPasajeros) )
             {

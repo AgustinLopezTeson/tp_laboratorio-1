@@ -35,7 +35,7 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 	                        Passenger_setTipoPasajero(aux,buffer[5]);
 	                        Passenger_setEstadoVuelo(aux,buffer[6]);
 
-	         	         /*  printf("%d\n",aux->id);
+	         	          /*printf("%d\n",aux->id);
 	         	           printf("%s\n",aux->nombre);
 	         	           printf("%s\n",aux->lastname);
 	         	           printf("%.2f\n",aux->precio);

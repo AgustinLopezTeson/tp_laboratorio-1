@@ -207,7 +207,7 @@ int Passenger_getApellido(Passenger* this,char* apellido)
 int Passenger_getPrecio(Passenger* this,float* precio)
 {
     int todoOk = 0;
-    if (this != NULL && precio > 0)
+    if (this != NULL)
     {
         *precio = this->precio;
         todoOk = 1;
@@ -256,7 +256,7 @@ void list_Passenger(Passenger* this)
     char nombre[50];
     char apellido[50];
     float precio;
-    char codigoVuelo[4];
+    char codigoVuelo[8];
     char typePassenger[21];
     char statusFlight[21];
 
@@ -266,12 +266,16 @@ void list_Passenger(Passenger* this)
         if ( 	Passenger_getId(this,&id) &&
                 Passenger_getNombre(this, nombre ) &&
 				Passenger_getApellido(this,apellido)&&
-                Passenger_getPrecio( this,&precio) &&
+                Passenger_getPrecio(this,&precio) &&
                 Passenger_getCodigoVuelo(this,codigoVuelo)&&
 				Passenger_getTipoPasajero(this,typePassenger)&&
 				Passenger_getEstadoVuelo(this,statusFlight)
            )
+
         {
+
+
+
             printf ("%-4d %-10s %-10s     %-10.2f    %-10s   %-15s%-5s\n", id, nombre,apellido, precio, codigoVuelo,typePassenger,statusFlight);
 
         }
@@ -424,37 +428,7 @@ int searchPassengerId(LinkedList* pArrayListPassenger, int id)
     }
     return indice;
 }
-/*
-int compPassengerprecio(void* pPassenger, void* sPassenger)
-{
-    int todoOk= 0;
 
-    if( ((Passenger*)pPassenger)->precio > ((Passenger*)sPassenger)->precio )
-    {
-        todoOk++;
-    }
-    if( ((Passenger*)pPassenger)->precio < ((Passenger*)sPassenger)->precio )
-    {
-        todoOk--;
-    }
-    return todoOk;
-}
-
-int compPassengerEstadoVuelo(void* pPassenger, void* sPassenger)
-{
-    int todoOk= 0;
-
-    if(((Passenger*)pPassenger)->statusFlight > ((Passenger*)sPassenger)->statusFlight)
-    {
-        todoOk++;
-    }
-    if(((Passenger*)pPassenger)->statusFlight < ((Passenger*)sPassenger)->statusFlight)
-    {
-        todoOk --;
-    }
-    return todoOk;
-
-}
 
 
 int buscarMayorId(LinkedList* pArrayListPassenger)
@@ -476,5 +450,5 @@ int buscarMayorId(LinkedList* pArrayListPassenger)
     }
     return mayor;
 }
-}
-*/
+
+

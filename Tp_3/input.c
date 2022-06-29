@@ -43,19 +43,3 @@ int menuDeModificaciones()
     return opcion;
 }
 
-
-int subMenuComp()
-{
-    int opcion = 0;
-    system("cls");
-    printf("     *** Menu de ordenamiento ***\n");
-    printf("  1- Ordenar por Horas trabajadas de menor a mayor\n");
-    printf("  2- Ordenar por Horas trabajadas de mayor a menor\n");
-    printf("  3- Ordenar por Sueldo de menor a mayor\n");
-    printf("  4- Ordenar por Sueldo de mayor a menor\n");
-    printf("  5- Salir\n");
-    printf("Ingrese opcion: ");
-    fflush(stdin);
-    scanf("%d", &opcion);
-    return opcion;
-}
