@@ -365,6 +365,7 @@ printf("%s",statusFlight);
     {
         ll_add(pArrayListPassenger,aux);
         todoOk=1;
+
     }
 
     return todoOk;

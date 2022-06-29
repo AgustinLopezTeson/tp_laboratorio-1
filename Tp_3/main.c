@@ -25,7 +25,11 @@ int main()
 {
 	setbuf(stdout,NULL);
     char seguir='s';
-    LinkedList* listaPasajeros = ll_newLinkedList();
+    int flagEntrada=0;
+    int flagGuardado=0;
+    int pNextId=1001;
+    int*pId=&pNextId;
+	LinkedList* listaPasajeros = ll_newLinkedList();
     do{
         switch(menu())
         {
@@ -34,49 +38,85 @@ int main()
             {
                 printf("Error al cargar desde texto\n");
             }
+            flagEntrada=1;
             break;
         case 2:
             if ( !controller_loadFromBinary("data.bin", listaPasajeros) )
             {
                 printf("Error al cargar desde binario\n");
             }
+            flagEntrada=1;
             break;
         case 3:
-            if ( !controller_addPassenger(listaPasajeros) )
+            if ( !controller_addPassenger(listaPasajeros))
             {
                 printf("Error en el alta de empleado\n");
             }
+            flagEntrada=1;
             break;
         case 4:
-            if ( !controller_editPassenger(listaPasajeros) )
-            {
-                printf("Error al editar al empleado\n");
-            }
+        	if(flagEntrada==0)
+        	   {
+        		printf("Tiene que cargar algo antes de editar");
+        	   }else
+        	   {
+        		   if ( !controller_editPassenger(listaPasajeros) )
+        		               {
+        		                   printf("Error al editar al empleado\n");
+        		               }
+        	   }
+
             break;
         case 5:
-            if ( !controller_removePassenger(listaPasajeros) )
-            {
-                printf("Error en la baja de empleado\n");
-            }
+
+        	if(flagEntrada==0)
+        	{
+				printf("Tiene que cargar algo antes de remover");
+        	}else
+        	{
+            	if ( !controller_removePassenger(listaPasajeros) )
+                {
+                    printf("Error en la baja de empleado\n");
+                }
+        	}
+
             break;
         case 6:
-            if ( !controller_ListPassenger(listaPasajeros) )
-            {
-                printf("Error en listar los empleados\n");
-            }
-            system("pause");
+        	if(flagEntrada==0)
+        	{
+				printf("Tiene que cargar algo antes de listar");
+        	}else
+        	{
+            	if ( !controller_ListPassenger(listaPasajeros) )
+                {
+                    printf("Error en listar los empleados\n");
+                }
+                system("pause");
+        	}
+
             break;
        case 7:
-            if ( !controller_sortPassenger(listaPasajeros) )
-            {
-                printf("Error al  ordenar los empleados\n");
-            }
+			if(flagEntrada==0)
+			{
+				printf("Tiene que cargar algo antes de ordenar");
+			}else
+			{
+		    	   if ( !controller_sortPassenger(listaPasajeros) )
+		            {
+		                printf("Error al  ordenar los empleados\n");
+		            }
+			}
+
             break;
         case 8:
             if ( !controller_saveAsText("data1.csv", listaPasajeros) )
             {
                 printf("Error al guardar en texto\n");
+            }else
+            {
+            	flagGuardado=1;
             }
+
             break;
         case 9:
             if ( !controller_saveAsBinary("data.bin", listaPasajeros) )
@@ -85,7 +125,14 @@ int main()
             }
             break;
         case 10:
-            seguir='n';
+        	if(flagGuardado==0)
+        	{
+        		printf("Tiene que guardar el archivo antes de poder salir");
+        	}else
+        	{
+        		 seguir='n';
+        	}
+
             break;
         default:
             printf("\nOpcion Incorrecta \n\n");
