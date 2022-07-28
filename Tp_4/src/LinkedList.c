@@ -16,6 +16,17 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement);
 LinkedList* ll_newLinkedList(void)
 {
     LinkedList* this= NULL;
+
+
+    this = (LinkedList*) malloc ( sizeof(LinkedList));
+
+    if(this!=NULL)
+    {
+
+        this->size=0;
+        this->pFirstNode=NULL;
+    }
+
     return this;
 }
 
@@ -28,6 +39,15 @@ LinkedList* ll_newLinkedList(void)
 int ll_len(LinkedList* this)
 {
     int returnAux = -1;
+
+    if(this!=NULL)
+    {
+
+        returnAux=this->size;
+    }
+
+
+
     return returnAux;
 }
 
@@ -42,8 +62,26 @@ int ll_len(LinkedList* this)
  */
 static Node* getNode(LinkedList* this, int nodeIndex)
 {
-    return NULL;
+
+    Node* aux=NULL;
+
+    if(this!=NULL && nodeIndex<ll_len(this) && nodeIndex>=0)
+    {
+
+        aux = this->pFirstNode;
+
+        aux = this->pFirstNode;
+        while(nodeIndex>0)
+        {
+            aux = aux->pNextNode;
+            nodeIndex--;
+        }
+
+    }
+    return aux;
 }
+
+
 
 /** \brief  Permite realizar el test de la funcion getNode la cual es privada
  *
@@ -71,6 +109,41 @@ Node* test_getNode(LinkedList* this, int nodeIndex)
 static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 {
     int returnAux = -1;
+
+    Node* nuevoNodo=NULL;
+    Node* auxNode=NULL;
+    if(this!= NULL && nodeIndex>=0 && nodeIndex <= ll_len(this))
+    {
+
+        nuevoNodo= (Node*) malloc(sizeof(Node*));
+
+        if(nuevoNodo!=NULL)
+        {
+
+            nuevoNodo->pElement=pElement;
+            nuevoNodo->pNextNode=NULL;
+
+            if(nodeIndex==0)
+            {
+
+                nuevoNodo->pNextNode= this->pFirstNode;
+                this->pFirstNode=nuevoNodo;
+            }
+            else
+            {
+
+                auxNode= getNode(this,nodeIndex-1);
+                nuevoNodo->pNextNode= auxNode->pNextNode;
+                auxNode->pNextNode=nuevoNodo;
+
+            }
+
+            this->size++;
+        }
+        returnAux=0;
+    }
+
+
     return returnAux;
 }
 
@@ -98,9 +171,9 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
  */
 int ll_add(LinkedList* this, void* pElement)
 {
-    int returnAux = -1;
 
-    return returnAux;
+    return addNode(this,ll_len(this),pElement);
+
 }
 
 /** \brief Permite realizar el test de la funcion addNode la cual es privada
@@ -114,6 +187,15 @@ int ll_add(LinkedList* this, void* pElement)
 void* ll_get(LinkedList* this, int index)
 {
     void* returnAux = NULL;
+
+    Node* aux = NULL;
+    aux=getNode(this,index);
+
+    if(aux!=NULL)
+    {
+
+        returnAux=aux->pElement;
+    }
 
     return returnAux;
 }
@@ -131,7 +213,16 @@ void* ll_get(LinkedList* this, int index)
 int ll_set(LinkedList* this, int index,void* pElement)
 {
     int returnAux = -1;
-
+    Node* aux = NULL;
+    if(this!= NULL&& index>= 0 && index < ll_len(this))
+    {
+        aux=getNode(this, index);
+        if(aux!=NULL)
+        {
+            aux->pElement=pElement;
+            returnAux = 0;
+        }
+    }
     return returnAux;
 }
 
@@ -147,7 +238,28 @@ int ll_set(LinkedList* this, int index,void* pElement)
 int ll_remove(LinkedList* this,int index)
 {
     int returnAux = -1;
+    Node* previous=NULL;
 
+
+    if(this!= NULL&& index>= 0 && index < ll_len(this))
+    {
+        if(index==0)
+        {
+            this->pFirstNode= this->pFirstNode->pNextNode;
+        }
+        else
+        {
+            previous=getNode(this,index-1);
+
+            if(previous!=NULL)
+            {
+                previous->pNextNode=previous->pNextNode->pNextNode;
+            }
+        }
+
+        this->size--;
+        returnAux=0;
+    }
     return returnAux;
 }
 
@@ -162,6 +274,15 @@ int ll_remove(LinkedList* this,int index)
 int ll_clear(LinkedList* this)
 {
     int returnAux = -1;
+
+    if(this!=NULL)
+    {
+        while(ll_len(this))
+        {
+            ll_remove(this,0);
+        }
+        returnAux=0;
+    }
 
     return returnAux;
 }
@@ -178,6 +299,18 @@ int ll_deleteLinkedList(LinkedList* this)
 {
     int returnAux = -1;
 
+    if(this!=NULL)
+    {
+
+        if(ll_clear(this)==0)
+        {
+
+            free(this);
+            returnAux=0;
+        }
+
+    }
+
     return returnAux;
 }
 
@@ -193,9 +326,20 @@ int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
 
+    if(this!=NULL)
+    {
+        int  tam=ll_len(this);
+        for(int i = 0 ; i<tam; i++)
+        {
+            if(pElement==ll_get(this,i))
+            {
+                returnAux=0;
+                break;
+            }
+        }
+    }
     return returnAux;
 }
-
 /** \brief Indica si la lista esta o no vacia
  *
  * \param this LinkedList* Puntero a la lista
@@ -207,6 +351,16 @@ int ll_indexOf(LinkedList* this, void* pElement)
 int ll_isEmpty(LinkedList* this)
 {
     int returnAux = -1;
+    if(this!=NULL)
+    {
+        returnAux=1;
+
+        if(ll_len(this))
+        {
+            returnAux=0;
+        }
+    }
+
 
     return returnAux;
 }
@@ -222,9 +376,7 @@ int ll_isEmpty(LinkedList* this)
  */
 int ll_push(LinkedList* this, int index, void* pElement)
 {
-    int returnAux = -1;
-
-    return returnAux;
+    return addNode(this,index,pElement);
 }
 
 
@@ -239,6 +391,9 @@ int ll_push(LinkedList* this, int index, void* pElement)
 void* ll_pop(LinkedList* this,int index)
 {
     void* returnAux = NULL;
+
+    returnAux=ll_get(this,index);
+    ll_remove(this,index);
 
     return returnAux;
 }
@@ -256,6 +411,18 @@ int ll_contains(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
 
+    if(this!=NULL)
+    {
+        returnAux=0;
+        if(ll_indexOf(this,pElement)>=0)
+        {
+            returnAux=1;
+
+        }
+
+    }
+
+
     return returnAux;
 }
 
@@ -271,6 +438,26 @@ int ll_contains(LinkedList* this, void* pElement)
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
     int returnAux = -1;
+    void* aux = NULL;
+    if(this!=NULL && this2 != NULL)
+    {
+        returnAux=1;
+
+        int tam = ll_len(this2);
+
+        for(int i=0; i<tam; i++)
+        {
+            aux=ll_get(this2,i);
+            if(!ll_contains(this,aux))
+            {
+                returnAux=0;
+                break;
+            }
+        }
+
+
+    }
+
 
     return returnAux;
 }
@@ -289,6 +476,28 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 {
     LinkedList* cloneArray = NULL;
 
+    if(this != NULL && from>=0 && to<=ll_len(this)&& to>from)
+    {
+
+        cloneArray=ll_newLinkedList();
+
+        if(cloneArray!=NULL)
+        {
+
+            for(int i=from; i<to; i++)
+            {
+
+                ll_add(cloneArray,ll_get(this,i));
+
+            }
+
+        }
+
+
+    }
+
+
+
     return cloneArray;
 }
 
@@ -302,9 +511,9 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 */
 LinkedList* ll_clone(LinkedList* this)
 {
-    LinkedList* cloneArray = NULL;
 
-    return cloneArray;
+    return ll_subList(this,0,ll_len(this));
+
 }
 
 
@@ -315,11 +524,67 @@ LinkedList* ll_clone(LinkedList* this)
  * \return int Retorna  (-1) Error: si el puntero a la listas es NULL
                                 ( 0) Si ok
  */
-int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
+int ll_sort(LinkedList* this, int (*pFunc)(void*,void*), int order)
 {
     int returnAux =-1;
+    int tam;
+    void* aux = NULL;
+    if(this!=NULL && pFunc!= NULL && order<=1 && order>=0)
+    {
+        tam = ll_len(this);
+        for(int i = 0; i<tam-1 ; i++)
+        {
+            for(int j=i; j<tam ; j++ )
+            {
 
+                if( pFunc(ll_get(this,i),ll_get(this,j))>0 && order
+                        ||(pFunc(ll_get(this,i),ll_get(this,j))<0 && !order))
+                {
+                    aux= ll_get(this,i);
+                    ll_set(this,i,ll_get(this,j));
+                    ll_set(this,j,aux);
+
+                }
+            }
+        }
+        returnAux=0;
+    }
     return returnAux;
 
+}
+
+
+LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
+{
+
+    LinkedList* filterList=NULL;
+    int tam;
+    void* elemento=NULL;
+    if(this!=NULL && pFunc != NULL)
+    {
+
+        filterList= ll_newLinkedList();
+
+
+        if(filterList!=NULL)
+        {
+            tam = ll_len(this);
+            for(int i = 0; i<tam ; i++)
+            {
+
+            elemento=ll_get(this,i);
+
+                if(pFunc(elemento)){
+
+                    ll_add(this,elemento);
+
+                }
+
+            }
+        }
+
+    }
+
+    return filterList;
 }
 

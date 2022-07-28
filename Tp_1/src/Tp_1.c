@@ -69,7 +69,12 @@ int main() {
 		{
 			printf("\nCargar KM primero\n\n");
 		}else{
-		informarResultado(tarjetaLatam,creditoLatam,btcLatam,unitarioLatam,tarjetaAerolineas,creditoAerolineas,btcAerolineas,unitarioAerolineas,diferencia);
+			if(kilometros>0){
+				informarResultado(tarjetaLatam,creditoLatam,btcLatam,unitarioLatam,tarjetaAerolineas,creditoAerolineas,btcAerolineas,unitarioAerolineas,diferencia);
+			}else
+			{
+				printf("No se puede informar, con los Km en 0");
+			}
 		}
 		break;
 	case 5:
