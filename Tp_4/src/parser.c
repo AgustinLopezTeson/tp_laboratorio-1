@@ -1,75 +1,98 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "../testing/inc/main_test.h"
 #include "../inc/LinkedList.h"
-#include "../inc/Controller.h"
-#include "../inc/Employee.h"
-#include "../inc/input.h"
-#include "../inc/parser.h"
+#include "Passenger.h"
+#include "Controller.h"
 
-
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
+/** \brief Parsea los datos los datos de los pasajeros desde el archivo data.csv (modo texto).
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
+int parser_PassengerFromText(FILE* pFile, LinkedList* pArrayListPassenger)
 {
-    int todoOk=1;
-    int cant;
-    char buffer[4][40];
-    Employee * aux=NULL;
+	int rtn = -1;
+	Passenger* auxPassenger;
+	int contadorIdIncialLista=controller_getUltimoId();
+	char buffer[7][50];
+	int aux;
 
-            fscanf(pFile,"%[^,],%[^,],%[^,],%s\n",buffer[0],buffer[1],buffer[2],buffer[3]);
-            while(!feof(pFile)){
-                    aux=employee_new();
+	if(pFile != NULL && pArrayListPassenger != NULL)
+	{
+		fscanf(pFile,"%[^,], %[^,], %[^,], %[^,], %[^,], %[^,], %[^\n]\n",buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6]);
 
-                    if(aux!=NULL)
-                    {
-                        cant = fscanf(pFile,"%[^,],%[^,],%[^,],%s\n",buffer[0],buffer[1],buffer[2],buffer[3]);
-                        employee_setId(aux,atoi(buffer[0]));
-                        employee_setNombre(aux,buffer[1]);
-                        employee_setHorasTrabajadas(aux,atoi(buffer[2]));
-                        employee_setSueldo(aux,atof(buffer[3]));
+		while(!feof(pFile))
+		{
+			aux = fscanf(pFile,"%[^,], %[^,], %[^,], %[^,], %[^,], %[^,], %[^\n]\n",buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6]);
+			if(aux == 7)
+			{
+				auxPassenger = Passenger_newParametros(buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6]);
 
-                        ll_add(pArrayListEmployee,aux);
+				if(auxPassenger != NULL)
+				{
 
-                        todoOk=0;
-                    }
-                        if(cant<3){
-                            break;
-                        }
-                }
+					auxPassenger->id=contadorIdIncialLista;
+					contadorIdIncialLista++;
+					aux = ll_add(pArrayListPassenger, auxPassenger);
 
-    return todoOk;
+
+					if(aux != 0)
+					{
+						Passenger_delete(auxPassenger);
+						break;
+					}
+					else
+					{
+						rtn = 1;
+					}
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
+		Passenger_actualizarUltimoId(contadorIdIncialLista-1);
+	}
+	return rtn;
 }
 
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
+/** \brief Parsea los datos los datos de los pasajeros desde el archivo data.csv (modo binario).
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
- *
  */
-int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
+int parser_PassengerFromBinary(FILE* pFile, LinkedList* pArrayListPassenger)
 {
+	int rtn = -1;
+	int lectura;
+	int contadorId = controller_getUltimoId();
 
-int todoOk=1;
-    int cant;
-    Employee * aux=NULL;
-            while(!feof(pFile)){
+	if(pFile != NULL && pArrayListPassenger != NULL)
+	{
+		Passenger* pPass = Passenger_new();
 
-                    aux=employee_new();
-                   if(aux!=NULL)
-                   {
-                        aux=fread(aux,sizeof(Employee),1000,pFile);
-                        ll_add(pArrayListEmployee,aux);
-                        todoOk=0;
-                   }
-            }
-    return todoOk;
+		do
+		{
+			lectura = fread(pPass, sizeof(Passenger), 1, pFile);
+
+			if(lectura)
+			{
+				pPass->id = contadorId;
+				contadorId++;
+				ll_add(pArrayListPassenger, pPass);
+				pPass = Passenger_new();
+				rtn = 1;
+			}
+		}while(!feof(pFile));
+
+		Passenger_actualizarUltimoId(contadorId);
+		free(pPass);
+		fclose(pFile);
+	}
+
+	return rtn;
 }
-

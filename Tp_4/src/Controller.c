@@ -1,476 +1,449 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "../testing/inc/main_test.h"
 #include "../inc/LinkedList.h"
-#include "../inc/Controller.h"
-#include "../inc/Employee.h"
-#include "../inc/input.h"
-#include "../inc/parser.h"
+#include "Passenger.h"
+#include "Parser.h"
 
-
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
+/** \brief Carga los datos de los pasajeros desde el archivo data.csv (modo texto).
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
+int controller_loadFromText(char* path, LinkedList* pArrayListPassenger)
 {
-    FILE* f= fopen("data.csv","r");
+	int rtn = -1;
+	FILE* pFile = fopen(path, "r");
 
-    if(f==NULL && pArrayListEmployee==NULL)
-    {
-        printf("No se pudo cargar el archivo");
-    }
-    else
-    {
-        if(parser_EmployeeFromText(f,pArrayListEmployee))
-        {
-            printf("Hubo un error en cargar los empleados");
-        }
-        else
-        {
-            printf("Carga exitosa!!!!\n\n");
-            system("pause");
-            fclose(f);
-        }
-
-    }
-    return 1;
+	if(pArrayListPassenger != NULL && path != NULL)
+	{
+		printf("\nSE HAN CARGADO LOS DATOS DEL ARCHIVO CSV...\n");
+		parser_PassengerFromText(pFile, pArrayListPassenger);
+		rtn = 1;
+	}
+	return rtn;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
+/** \brief Carga los datos de los pasajeros desde el archivo data.csv (modo binario).
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
+int controller_loadFromBinary(char* path, LinkedList* pArrayListPassenger)
 {
+	int rtn = -1;
 
-    FILE* f= fopen("data.bin","rb");
+	if(pArrayListPassenger!=NULL && path!=NULL)
+	{
+		printf("\nSE HAN CARGADO LOS DATOS DEL ARCHIVO BIN...\n");
+		FILE* pFile = fopen(path, "rb");
 
-    if(f==NULL && pArrayListEmployee==NULL)
-    {
-        printf("No se pudo cargar el archivo");
-    }
-    else
-    {
-        if(parser_EmployeeFromBinary(f,pArrayListEmployee))
-        {
-            printf("Hubo un error en cargar los empleados");
-        }
-        else
-        {
-            printf("Carga exitosa!!!!\n\n");
-            system("pause");
-            fclose(f);
-        }
-
-    }
-    return 1;
+		if(pFile != NULL)
+		{
+			parser_PassengerFromBinary(pFile , pArrayListPassenger);
+			rtn = 1;
+		}
+	}
+	return rtn;
 }
 
-/** \brief Alta de empleados
+/** \brief Alta de pasajero
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_addEmployee(LinkedList* pArrayListEmployee,int* id)
+int controller_addPassenger(LinkedList* pArrayListPassenger)
 {
+	int rtn = -1;
+	int auxId;
+	float auxPrecio;
+	int auxTipoPasajero;
+	char auxCodigoVuelo[TAM_CODIGO];
+	char auxNombre[TAM_CADENA];
+	char auxApellido[TAM_CADENA];
+	int auxEstadoVuelo;
+	Passenger* unPasajero = NULL;
 
-    if(pArrayListEmployee!=NULL)
-    {
-        system("cls");
-        if(new_employeeManual(pArrayListEmployee))
-        {
-            printf("Alta Exitosa\n\n");
-            system("pause");
-        }
-    }
-    else
-    {
-        printf("No se pudo dar el alta");
-    }
+	if(pArrayListPassenger != NULL)
+	{
+		auxId = controller_getUltimoId();
 
+		if( utn_getString("\nINGRESE SU NOMBRE: ", "\nERROR. \n", 2, TAM_CADENA, auxNombre) == 0 &&
+			utn_getString("\nINGRESE SU APELLIDO: ", "\nERROR. \n", 2, TAM_CADENA, auxApellido) == 0 &&
+			utn_getString("\nINGRESE CODIGO DE VUELO: ", "\nERROR. \n", 2, TAM_CODIGO, auxCodigoVuelo) == 0 &&
+			utn_getNumFloat("\nINGRESE PRECIO: ", "\nERROR. \n", 1, 999999, 2, &auxPrecio) == 0 &&
+			utn_getNumero("\nINGRESE TIPO O CLASE DE PASAJERO (1. ECONOMICA | 2. EJECUTIVA | 3. PRIMERA CLASE): ", "\nERROR. \n", 1, 3, 2, &auxTipoPasajero) == 0 &&
+			utn_getNumero("\nINGRESE ESTADO VUELO (1. EN HORARIO | 2. EN VUELO | 3. DEMORADO | 4. ATERRIZADO): ", "\nERROR. \n", 1, 4, 2, &auxEstadoVuelo) == 0)
+		{
+			unPasajero = Passenger_newParametrosAlta(auxId, auxNombre, auxApellido, auxPrecio, auxCodigoVuelo, auxTipoPasajero, auxEstadoVuelo);
+			if(unPasajero != NULL)
+			{
+				ll_add(pArrayListPassenger, unPasajero);
+				Passenger_actualizarUltimoId(auxId);
+				rtn = 1;
+			}
+		}
+	}
 
-    return 1;
+    return rtn;
 }
 
-/** \brief Modificar datos de empleado
+/** \brief Modificar datos de pasajero
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_editEmployee(LinkedList* pArrayListEmployee)
+int controller_editPassenger(LinkedList* pArrayListPassenger)
 {
-    int todoOk = 0;
-    Employee* auxEmpleado;
+	int i;
+	int rtn = -1;
+	float precio;
+	int idAbuscar;
+	int opcionMenu;
+	int tipoPasajero;
+	int estadoVuelo;
+	char codigoVuelo[TAM_CODIGO];
+	char nombre[TAM_CADENA];
+	char apellido[TAM_CADENA];
+	Passenger* pPassenger = NULL;
 
-    char seguir = 's';
-    char salir;
-    int id;
-    int opcion;
-    int indice;
-    int sueldo;
-    int horasTrabajadas;
+	if(pArrayListPassenger != NULL)
+	{
+		if(utn_getNumero("\nINGRESE EL ID DEL PASAJERO A MOFIDIFICAR: ", "\nERROR.", 0, 10000, 2, &idAbuscar) == 0)
+		{
 
-    char confirma;
+			for(i = 0; i < ll_len(pArrayListPassenger); i++)
+			{
+				pPassenger = (Passenger*) ll_get(pArrayListPassenger, i);
 
-    controller_ListEmployee(pArrayListEmployee);
+				if(idAbuscar == pPassenger->id)
+				{
+					puts("\n\t\t\t\t\tPASAJERO A MODIFICAR");
+					puts("+------------------------------------------------------------------------------------------------------------------+");
+					puts("| ID |       NOMBRE       |      APELLIDO      |  PRECIO  | CODIGO VUELO |  TIPO DE PASAJERO  |   ESTADO DE VUELO  |");
+					puts("+------------------------------------------------------------------------------------------------------------------+");
 
-    if ( pArrayListEmployee != NULL )
-    {
-        //system("cls");
-        printf("Modificar datos de empleado\n");
+					ll_get(pArrayListPassenger, i);
+					Passenger_imprimir(pPassenger);
 
-        printf("Ingrese id: ");
-        scanf("%d", &id);
-        indice = searchEmployeeId( pArrayListEmployee, id );
-        if ( indice == -1 )
-        {
-            printf("No se encontro el empleado\n");
-        }
-        else
-        {
-            auxEmpleado = ll_get(pArrayListEmployee, indice);
+					puts("+------------------------------------------------------------------------------------------------------------------+");
 
-            do
-            {
-                system("cls");
-                printf("\n");
-                printf("Legajo  Nombre          Horas Trabajadas    Sueldo\n");
-                list_Employee(auxEmpleado);
-                opcion = menuDeModificaciones();
+					if(utn_getNumero("\nCAMPOS A MODIFICAR: \n"
+									"1. NOMBRE \n2. APELLIDO \n"
+									"3. PRECIO \n4. CODIGO DE VUELO \n"
+									"5. TIPO O CLASE \n6. ESTADO DE VUELO \n"
+									"7. SALIR \n"
+									"\nINGRESE OPCION: ", "\nERROR.", 1, 7, 2, &opcionMenu) == 0)
+					{
+						switch(opcionMenu)
+						{
+							case 1:
+								if(utn_getString("\nINGRESE NUEVO NOMBRE: ", "\nERROR.", 2, TAM_CADENA, nombre) == 0)
+								{
+									if(Passenger_setNombre(pPassenger, nombre) == 1)
+									{
+										puts("\nNOMBRE MODIFICADO.");
+									}
+								}
+							break;
 
-                switch (opcion)
-                {
-                case 1:
-                    system("cls");
-                    printf("  Editar Horas Trabajadas\n");
-                    printf("Ingrese las horas trabajadas: ");
-                    scanf("%d", &horasTrabajadas);
-                    printf("Confirma cambio horas trabajadas? (S/N)\n");
-                    fflush(stdin);
-                    scanf("%c", &confirma);
-                    confirma = toupper(confirma);
-                    if (confirma == 'S')
-                    {
-                        employee_setHorasTrabajadas(auxEmpleado, horasTrabajadas);
-                    }
-                    else
-                    {
-                        printf("Edición cancelada\n");
-                    }
+							case 2:
+								if(utn_getString("\nINGRESE NUEVO APELLIDO: ", "\nERROR.", 2, TAM_CADENA, apellido) == 0)
+								{
+									if(Passenger_setApellido(pPassenger, apellido) == 1)
+									{
+										puts("\nAPELLIDO MODIFICADO.");
+									}
+								}
+							break;
 
-                    break;
-                case 2:
-                    system("cls");
-                    printf("  Editar sueldo\n");
-                    printf("Ingrese el sueldo: ");
-                    scanf("%d", &sueldo);
+							case 3:
+								if(utn_getNumFloat("\nINGRESE NUEVO PRECIO: ", "\nERROR.", 1, 9999999, 2, &precio) == 0)
+								{
+									if(Passenger_setPrecio(pPassenger, precio) == 1)
+									{
+										puts("\nPRECIO MODIFICADO.");
+									}
+								}
+							break;
 
-                    printf("Confirma cambio sueldo? (S/N)\n");
-                    fflush(stdin);
-                    scanf("%c", &confirma);
-                    confirma = toupper(confirma);
-                    if (confirma == 'S')
-                    {
-                        employee_setSueldo(auxEmpleado, sueldo);
-                    }
-                    else
-                    {
-                        printf("Edición cancelada\n");
-                    }
+							case 4:
+								if(utn_getString("\nINGRESE NUEVO CODIGO DE VUELO: ", "\nERROR.", 2, TAM_CODIGO, codigoVuelo) == 0)
+								{
+									if(Passenger_setCodigoVuelo(pPassenger, codigoVuelo) == 1)
+									{
+										puts("\nCODIGO DE VUELO MODIFICADO.");
+									}
+								}
+							break;
 
-                    break;
-                case 3:
-                    printf("Esta seguro que quiere salir? (S/N)\n");
-                    fflush(stdin);
-                    scanf("%c", &salir);
-                    salir = toupper(salir);
-                    if (salir == 'S')
-                    {
-                        seguir = 'n';
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    break;
-                default:
-                    printf("Opcion invalida\n");
-                    break;
-                }
-                system("pause");
-            }
-            while(seguir == 's');
-            todoOk=1;
-        }
-    }
-    return todoOk;
+							case 5:
+								if(utn_getNumero("\nINGRESE NUEVO TIPO O CLASE DE PASAJERO (1. ECONOMICA | 2. EJECUTIVA | 3. PRIMERA CLASE): ",
+										  "\nERROR.", 1, 3, 2, &tipoPasajero) == 0)
+								{
+									if(Passenger_setTipoPasajero(pPassenger, tipoPasajero) == 1)
+									{
+										puts("\nTIPO DE PASAJERO MODIFICADO.");
+									}
+								}
+							break;
+
+							case 6:
+								if(utn_getNumero("\nINGRESE ESTADO VUELO (1. EN HORARIO | 2. EN VUELO | 3. DEMORADO | 4. ATERRIZADO): ",
+										"\nERROR.", 1, 4, 2, &estadoVuelo) == 0)
+								{
+									if(Passenger_setEstadoVuelo(pPassenger, estadoVuelo) == 1)
+									{
+										puts("\nESTADO DE VUELO MODIFICADO.");
+									}
+								}
+							break;
+						}
+					}
+				}
+			}
+		}
+		rtn = 1;
+	}
+
+    return rtn;
 }
 
-/** \brief Baja de empleado
+/** \brief Baja de pasajero
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_removeEmployee(LinkedList* pArrayListEmployee)
+int controller_removePassenger(LinkedList* pArrayListPassenger)
 {
+	int rtn = -1;
+	int i;
+	int idAbuscar;
+	int opcionBaja;
+	int indexABorrar;
+	Passenger* pPassenger = NULL;
 
-    int todoOk = 0;
-    int id;
-    int indice;
-    char confirma;
+	if(pArrayListPassenger != NULL)
+	{
+		if(utn_getNumero("\nINGRESE EL ID DEL PASAJERO A DAR DE BAJA: ", "\nERROR.", 0, 10000, 2, &idAbuscar) == 0)
+		{
+			for(i = 0; i < ll_len(pArrayListPassenger); i++)
+			{
+				pPassenger = (Passenger*) ll_get(pArrayListPassenger, i);
 
-    Employee* auxEmp;
+				if(idAbuscar == pPassenger->id)
+				{
+					puts("\n\t\t\t\t\tPASAJERO A DAR DE BAJA");
+					puts("+------------------------------------------------------------------------------------------------------------------+");
+					puts("| ID |       NOMBRE       |      APELLIDO      |  PRECIO  | CODIGO VUELO |  TIPO DE PASAJERO  |   ESTADO DE VUELO  |");
+					puts("+------------------------------------------------------------------------------------------------------------------+");
 
-    controller_ListEmployee(pArrayListEmployee);
+					ll_get(pArrayListPassenger, i);
+					Passenger_imprimir(pPassenger);
 
-    if ( pArrayListEmployee != NULL )
-    {
+					puts("+------------------------------------------------------------------------------------------------------------------+");
 
-        printf("Baja de empleado\n");
+					utn_getNumero("\nESTA SEGURO QUE QUIERE DAR DE BAJA ESTE PASAJERO? (1-SI | 2-NO): ", "\nERROR.", 1, 2, 2, &opcionBaja);
 
-        printf("Ingrese id: ");
-        scanf("%d", &id);
-        indice = searchEmployeeId( pArrayListEmployee, id );
-        system("cls");
-        if ( indice == -1 )
-        {
-            printf("No se encontro el empleado\n");
-        }
-        else
-        {
-            auxEmp = ll_get(pArrayListEmployee, indice);
-            printf("Empleado seleccionado: \n\n");
-            printf("ID        NOMBRE      HorasTrabajadas      SUELDO\n\n");
-            list_Employee(auxEmp);
-            printf("\n");
-            printf("Confirma la baja? (S/N)\n");
-            fflush(stdin);
-            scanf("%c", &confirma);
-            if ( tolower(confirma) == 's' )
-            {
-                ll_remove(pArrayListEmployee, indice);
-                printf("Baja exitosa\n");
-                todoOk = 1;
-            }
-        }
+					indexABorrar = ll_indexOf(pArrayListPassenger, pPassenger);
 
-    }
-    return todoOk;
+					if(opcionBaja == 1)
+					{
+						//Passenger_delete(pPassenger);
+						ll_remove(pArrayListPassenger, indexABorrar);
+						rtn = 1;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		rtn = 0;
+	}
+
+    return rtn;
 }
 
-/** \brief Listar empleados
+/** \brief Listar pasajeros
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_ListEmployee(LinkedList* pArrayListEmployee)
+int controller_ListPassenger(LinkedList* pArrayListPassenger)
 {
-    int todoOk=0;
-    Employee* auxEmp=NULL;
-    if(pArrayListEmployee!=NULL)
-    {
-        printf("ID        NOMBRE      HorasTrabajadas      SUELDO\n\n");
-        for(int i = 0 ; i<ll_len(pArrayListEmployee); i++)
-        {
-            auxEmp=(Employee* )ll_get(pArrayListEmployee,i);
-            list_Employee(auxEmp);
+	int todoOk=-1;
 
-        }
-        todoOk=1;
-    }
+	if(pArrayListPassenger!=NULL)
+	{
+		int lenList = ll_len(pArrayListPassenger);
 
-    return todoOk;
+
+		puts("+-------------------------------------------------------------------------------------------------------");
+		puts(" Id        Nombre             Apellido        Precio   Codigo Vuelo   Tipo Pasajero     Estado de vuelo  ");
+		puts("+--------------------------------------------------------------------------------------------------------");
+
+		for (int i=0; i < lenList; ++i)
+		{
+			Passenger* pPassenger = ll_get(pArrayListPassenger, i);
+			Passenger_imprimir(pPassenger);
+		}
+
+		todoOk=1;
+	}
+	return todoOk;
 }
 
-/** \brief Ordenar empleados
+/** \brief Ordenar pasajeros
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_sortEmployee(LinkedList* pArrayListEmployee)
+int controller_sortPassenger(LinkedList* pArrayListPassenger)
 {
+	int rtn = -1;
 
-    char seguir = 's';
-    char salir;
+	if(pArrayListPassenger != NULL)
+	{
+		rtn = 1;
+		ll_sort(pArrayListPassenger, Passenger_funcionCriterio, 1);
+	}
+	else
+	{
+		rtn = 0;
+	}
 
-    int todoOk = 0;
-    int opcion;
-    if ( pArrayListEmployee != NULL )
-    {
-        system("cls");
-        printf("***Menu Ordenar empleados***\n");
-
-        do
-        {
-            opcion = subMenuComp();
-
-            switch (opcion)
-            {
-            case 1:
-                system("cls");
-                printf("  Ordenar Horas trabajadas de menor a mayor  \n");
-                ll_sort( pArrayListEmployee, compEmployeeHorasTrabajadas, 1 );
-                controller_ListEmployee(pArrayListEmployee);
-                break;
-            case 2:
-                system("cls");
-                printf("  Ordenar  Horas trabajadas de mayor a menor\n");
-                ll_sort( pArrayListEmployee, compEmployeeHorasTrabajadas, 0 );
-                controller_ListEmployee(pArrayListEmployee);
-                break;
-            case 3:
-                system("cls");
-                printf("  Ordenar  Sueldo de menor a mayor\n");
-                ll_sort( pArrayListEmployee, compEmployeeSueldo, 1 );
-                controller_ListEmployee(pArrayListEmployee);
-                break;
-            case 4:
-                system("cls");
-                printf("  Ordenar  Sueldo de mayor a menor\n");
-                ll_sort( pArrayListEmployee, compEmployeeSueldo, 0 );
-                controller_ListEmployee(pArrayListEmployee);
-                break;
-            case 5:
-                printf("Esta seguro que quiere salir? (S/N)\n");
-                fflush(stdin);
-                scanf("%c", &salir);
-                salir = toupper(salir);
-                if (salir == 'S')
-                {
-                    seguir = 'n';
-                }
-                else
-                {
-                    break;
-                }
-                break;
-            default:
-                printf("Opcion invalida\n");
-                break;
-            }
-            system("pause");
-        }
-        while(seguir == 's');
-    }
-    return todoOk;
-
-
-
-
-
-    return 1;
+    return rtn;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
+/** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo texto).
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
+int controller_saveAsText(char* path, LinkedList* pArrayListPassenger)
 {
-    int todoOk = 0;
-    FILE* f;
-    int id;
-    char nombre[50];
-    int horasTrabajadas;
-    int sueldo;
-    Employee* auxEmpleado;
+	int rtn = -1;
+	int id;
+	char nombre[50];
+	char apellido[50];
+	float precio;
+	char codigoDeVuelo[10];
+	int tipoPasajero;
+	int estadoVuelo;
 
-    if ( path != NULL && pArrayListEmployee != NULL )
-    {
+	Passenger* pasajero = NULL;
+	FILE* pFile;
 
-        f = fopen(path, "w"); // abro el archivo
-        if ( f == NULL )
-        {
-            printf("No se pudo abrir el archivo\n");
+	if(path != NULL && pArrayListPassenger != NULL)
+	{
+		pFile = fopen(path, "w");
 
-        }
+		pasajero=Passenger_new();
 
-        fprintf( f, "Id,Nombre,Horas Trabajadas,Sueldo\n" );
+		if(pasajero != NULL)
+		{
+			fprintf(pFile, "id,nombre,apellido,precio,codigoVuelo,tipoPasajero,estadoVuelo\n");
+			for(int i = 0; i < ll_len(pArrayListPassenger); i++)
+			{
+				pasajero = (Passenger*) ll_get(pArrayListPassenger, i);
+				if(pasajero != NULL)
+				{
+					Passenger_getId(pasajero, &id);
+					Passenger_getNombre(pasajero, nombre);
+					Passenger_getApellido(pasajero, apellido);
+					Passenger_getPrecio(pasajero, &precio);
+					Passenger_getCodigoVuelo(pasajero, codigoDeVuelo);
+					Passenger_getTipoPasajero(pasajero, &tipoPasajero);
+					Passenger_getEstadoVuelo(pasajero, &estadoVuelo);
 
-        for (int i = 0; i < ll_len(pArrayListEmployee); i++)
-        {
-            auxEmpleado = ll_get(pArrayListEmployee, i);
-            if ( employee_getId( auxEmpleado, &id ) &&
-                    employee_getNombre( auxEmpleado, nombre ) &&
-                    employee_getHorasTrabajadas( auxEmpleado, &horasTrabajadas) &&
-                    employee_getSueldo(auxEmpleado, &sueldo)
-               )
-            {
-                fprintf(f, "%d,%s,%d,%d\n", id, nombre, horasTrabajadas, sueldo);
-                todoOk = 1;
-            }
-        }
-        system("cls");
-        printf("\nGuardado correctamente en DATA1.CSV.\n");
-        system("pause");
-    }
-    fclose(f);
-    return todoOk;
+					fprintf(pFile,"%d,%s,%s,%.2f,%s,%d,%d\n", id, nombre, apellido, precio, codigoDeVuelo, tipoPasajero, estadoVuelo);
+					rtn = 1;
+				}
+				else
+				{
+					rtn = 0;
+					break;
+				}
+			}
+		}
+		fclose(pFile);
+
+		if(rtn)
+		{
+			printf("\nGuardo con exito\n");
+		}
+	}
+
+	return rtn;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
+/** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo binario).
  *
  * \param path char*
- * \param pArrayListEmployee LinkedList*
+ * \param pArrayListPassenger LinkedList*
  * \return int
  *
  */
-int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
+int controller_saveAsBinary(char* path, LinkedList* pArrayListPassenger)
 {
-    int todoOk = 0;
-    FILE* f;
+	int rtn = -1;
+	int tamArray;
+	Passenger* auxPassenger;
 
-    Employee* auxEmpleado;
+	tamArray = ll_len(pArrayListPassenger);
 
-    if ( path != NULL && pArrayListEmployee != NULL )
-    {
-        f = fopen(path, "wb");
-        if ( f == NULL )
-        {
-            printf("No se pudo abrir el archivo\n");
+	FILE* pFile;
+	pFile = fopen(path, "wb");
 
-        }
-
-        for (int i = 0; i < ll_len(pArrayListEmployee); i++)
-        {
-            auxEmpleado = ll_get(pArrayListEmployee, i);
-            if ( (auxEmpleado + i) != NULL )
-
-                if ( (auxEmpleado) != NULL )
-                {
-                    fwrite( auxEmpleado, sizeof(Employee), 1, f );
-                    todoOk = 1;
-                }
-        }
-        system("cls");
-        printf("\nGuardado correctamente en DATA.BIN.\n");
-        system("pause");
-
-
-    }
-    fclose(f);
-    return todoOk;
-
+	if(pFile != NULL && path != NULL)
+	{
+		for (int i = 0; i < tamArray; i++)
+		{
+			auxPassenger = ll_get(pArrayListPassenger,i);
+			fwrite(auxPassenger, sizeof(Passenger), 1, pFile);
+		}
+		printf("\nGuardado con exito (BIN)\n");
+		rtn = 1;
+	}
+	fclose(pFile);
+	return rtn;
 }
 
+int controller_getUltimoId()
+{
+	int ultimoId = 1;
+	char ultimoIdStr[100];
+
+	FILE* pFile = fopen("ultimoId.txt", "r");
+
+	if(pFile != NULL)
+	{
+		fscanf(pFile, "%[^\n]", ultimoIdStr);
+
+		ultimoId = atoi(ultimoIdStr);
+	}
+	else
+	{
+	    pFile = fopen("ultimoId.txt", "w");
+	    fprintf(pFile, "%d\n", ultimoId);
+	}
+	fclose(pFile);
+
+	return ultimoId;
+}
