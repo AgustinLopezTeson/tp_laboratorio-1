@@ -69,24 +69,28 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 {
 
-	int todoOk=1;
-	    int cant;
-	   Passenger* aux;
-	            while(!feof(pFile)){
+    int todoOk = 0;
+    int cant;
+    Passenger* auxEmpleado;
 
-	                    aux=Passenger_new();
-	                   if(aux!=NULL)
-	                   {
-	                        cant=fread(aux,sizeof(Passenger),1,pFile);
+    if (pFile != NULL && pArrayListPassenger != NULL  )
+    {
+        while ( !feof(pFile) )
+        {
+            auxEmpleado = Passenger_new();
 
-	                        if(cant!=1)
-	                        {
-	                            ll_add(pArrayListPassenger,aux);
-	                            todoOk = 0;
-	                            aux=NULL;
-	                        }
+            if ( auxEmpleado != NULL )
+            {
+                cant = fread( auxEmpleado, sizeof(Passenger), 1, pFile);
 
-	                   }
-	                }
-	    return todoOk;
+                if ( cant == 1 )
+                {
+                    ll_add(pArrayListPassenger, auxEmpleado);
+                    todoOk = 1;
+                    auxEmpleado = NULL;
+                }
+            }
+        }
+    }
+    return todoOk;
 }

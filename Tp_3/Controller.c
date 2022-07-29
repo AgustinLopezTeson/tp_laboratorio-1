@@ -65,10 +65,11 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
         {
             printf("Carga exitosa!!!!\n\n");
             system("pause");
-            fclose(f);
+
         }
 
     }
+    fclose(f);
     return 1;
 }
 

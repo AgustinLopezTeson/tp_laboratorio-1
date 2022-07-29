@@ -20,6 +20,7 @@ int main() {
 	int respuesta;
 	int kilometros=0;
 	int flagEnvio=0;
+	int flagCalculo=0;
 	float preAerolineas=0;
 	float preLatam=0;
 	float tarjetaLatam;
@@ -62,6 +63,7 @@ int main() {
 			printf("\nCargar KM primero\n\n");
 		}else{
 			calcularTodosLosCostos(kilometros,preAerolineas,preLatam,&tarjetaLatam,&creditoLatam,&btcLatam,&unitarioLatam,&tarjetaAerolineas,&creditoAerolineas,&btcAerolineas,&unitarioAerolineas,&diferencia);
+			flagCalculo=1;
 		}
 		break;
 	case 4:
@@ -70,10 +72,18 @@ int main() {
 			printf("\nCargar KM primero\n\n");
 		}else{
 			if(kilometros>0){
-				informarResultado(tarjetaLatam,creditoLatam,btcLatam,unitarioLatam,tarjetaAerolineas,creditoAerolineas,btcAerolineas,unitarioAerolineas,diferencia);
+
+				if(flagCalculo==1)	{
+					informarResultado(tarjetaLatam,creditoLatam,btcLatam,unitarioLatam,tarjetaAerolineas,creditoAerolineas,btcAerolineas,unitarioAerolineas,diferencia);
+				}
+				else
+				{
+					printf("No se puede mostrar sin calcular\n");
+				}
+
 			}else
 			{
-				printf("No se puede informar, con los Km en 0");
+				printf("No se puede informar, con los Km en 0\n");
 			}
 		}
 		break;

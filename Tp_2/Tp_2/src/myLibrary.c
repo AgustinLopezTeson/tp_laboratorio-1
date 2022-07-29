@@ -185,6 +185,7 @@ int parseFloat(float *pResultado)
     return todoOk;
 }
 
+
 int validarFloat(float *pResultado, char *mensaje, char *mensajeError,
                  float minimo, float maximo, int reintentos)
 {

@@ -65,7 +65,7 @@ int addPassenger(Passenger* list,int len, int id, char name[],char lastName[],fl
 			strcpy(newPassenger.lastName,lastName);
 			newPassenger.price=price;
 			newPassenger.typePassenger=typePassenger;
-			strcpy(newPassenger.flyCode,name);
+			strcpy(newPassenger.flyCode,flycode);
 			newPassenger.isEmpty=0;
 
 			list[indice]=newPassenger;
@@ -114,9 +114,14 @@ char flycode[10];
 	                printf("Error al ingresar el precio\n");
 	            }
 
-				printf("Ingrese el codigo del vuelo(4 caracteres): \n\n");
-				fflush(stdin);
-				gets(flycode);
+				do
+				{
+						printf("Ingrese el codigo del vuelo(4 caracteres): \n\n");
+						fflush(stdin);
+						gets(flycode);
+
+				}while(name[0]=='\0');
+
 
 				printf("Ingresar el tipo de pasajero(1 o 0): \n\n");
 				scanf("%d",&typePassenger);
@@ -300,7 +305,7 @@ int editEmployee(Passenger list[], int len)
         {
             do
             {
-                switch (editMenu(list, len, indice))
+                switch(editMenu(list, len, indice))
                 {
                 case 1:
                     printf("Modificar nombre: ");

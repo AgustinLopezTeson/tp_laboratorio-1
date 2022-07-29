@@ -315,6 +315,30 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr
     return new_Emp;
 }
 
+int passenger_lastId(LinkedList* pArrayListPassenger)
+{
+	Passenger* pEmployee;
+	int len = ll_len(pArrayListPassenger);
+	int auxId;
+	int lastId = 0;
+	int flag = 0;
+
+	if(pArrayListPassenger != NULL)
+	{
+		for(int i = 0; i < len; i++)
+		{
+			pEmployee = (Passenger*) ll_get(pArrayListPassenger,i);
+			Passenger_getId(pEmployee, &auxId);
+
+			if(auxId > lastId || flag == 0)
+			{
+				lastId = auxId;
+				flag = 1;
+			}
+		}
+	}
+	return lastId;
+}
 
 int  new_PassengerManual(LinkedList* pArrayListPassenger)
 {
@@ -331,20 +355,28 @@ int  new_PassengerManual(LinkedList* pArrayListPassenger)
     Passenger* aux=NULL;
     printf("*** Alta de Pasajero***\n\n");
     controller_ListPassenger(pArrayListPassenger);
-    printf("\n\nIngrese la id: ");
-    scanf("%d", &id);
-printf("%d",id);
-    printf("\n\nIngrese el nombre: ");
-    fflush(stdin);
-    gets(nombre);
-printf("%s",nombre);
-    printf("\n\nIngrese el Apellido: ");
-    fflush(stdin);
-    gets(apellido);
-printf("%s",apellido);
-    printf("\n\nIngrese precio:");
-    scanf("%f",&precio);
-printf("%.2f",precio);
+
+    id = passenger_lastId(pArrayListPassenger) + 1;
+
+    do{
+    		printf("Ingrese el nombre: \n\n");
+    		fflush(stdin);
+    		gets(nombre);
+
+    		}while((valCadena(nombre))==1 || nombre[0]=='\0');
+
+    do{
+    		printf("Ingrese el apellido: \n\n");
+    		fflush(stdin);
+    		gets(apellido);
+    		}while((valCadena(apellido))==1 || apellido[0]=='\0');
+
+     if (!validarFloat(&precio, "Ingrese el precio: ",
+    	                   "Error, un precio valido: ", 1, 1000000, 3))
+    	   {
+    	      printf("Error al ingresar el precio\n");
+    	   }
+
     printf("\n\nIngrese el codigo de Vuelo(4 Caracteres): ");
     fflush(stdin);
     gets(codigoVuelo);
@@ -370,6 +402,8 @@ printf("%s",statusFlight);
 
     return todoOk;
 }
+
+
 
 
 Passenger* Passenger_newParametrosN(int id,char* nombre,char* apellido,float precio,char* codigoVuelo,char* typePassenger,char* statusFlight)

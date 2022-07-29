@@ -27,8 +27,7 @@ int main()
     char seguir='s';
     int flagEntrada=0;
     int flagGuardado=0;
-    int pNextId=1001;
-    int*pId=&pNextId;
+
 	LinkedList* listaPasajeros = ll_newLinkedList();
     do{
         switch(menu())
